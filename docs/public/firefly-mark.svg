@@ -1,5 +1,11 @@
-<svg width="96" height="96" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect x="8" y="8" width="80" height="80" rx="18" fill="#101820"/>
-  <path d="M49 18L24 54H44L38 78L72 38H51L49 18Z" fill="#7CCF67"/>
-  <path d="M24 54H44L40.5 68L58 45H39L49 18L24 54Z" fill="#F2B84B" opacity="0.92"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Firefly</title>
+  <path d="M27.5 19.5C21 12.2 10.8 10.9 7.7 18.2c-3.2 7.6 2.7 15.5 12 15.5h7.8V19.5Z" fill="#0f766e"/>
+  <path d="M36.5 19.5c6.5-7.3 16.7-8.6 19.8-1.3 3.2 7.6-2.7 15.5-12 15.5h-7.8V19.5Z" fill="#2dd4bf"/>
+  <path d="M27.5 32.2c-7.6.5-12.5 5.3-11.2 11.2 1.3 5.8 8.5 6.9 12.4 1.8l2.1-2.8-3.3-10.2Z" fill="#5eead4"/>
+  <path d="M36.5 32.2c7.6.5 12.5 5.3 11.2 11.2-1.3 5.8-8.5 6.9-12.4 1.8l-2.1-2.8 3.3-10.2Z" fill="#14b8a6"/>
+  <circle cx="32" cy="12" r="4" fill="#172033"/>
+  <rect x="27" y="16" width="10" height="29" rx="5" fill="#172033"/>
+  <circle cx="32" cy="50" r="7" fill="#f59e0b"/>
+  <circle cx="32" cy="50" r="3" fill="#fff7d6"/>
 </svg>
