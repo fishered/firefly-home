@@ -1,25 +1,116 @@
 ---
 title: Quick Start
-description: Start Firefly Server, Admin UI, and demo jobs locally.
+description: Start Firefly Server, Admin UI, and create jobs with Spring Boot annotations.
 ---
 
 # Quick Start
 
-Firefly is organized as a Java 21 and Gradle multi-module project. Start the Server locally, then open the standalone Admin UI to inspect jobs, executors, nodes, and plugins.
+Firefly is organized as a Java 21 and Gradle multi-module project. Start Firefly Server first, then add the starter to a Spring Boot business service and use `@FireflyJob` to register handlers and create jobs automatically.
 
 ## Requirements
 
 - JDK 21
+- Spring Boot 3.x business project
 - Node.js 18 or later for Admin UI and this documentation site
 - PostgreSQL is optional for local development; H2 and memory profiles are available for quick checks
 
-## Run Tests
+## Spring Boot Quick Integration
+
+Business services should usually use `firefly-spring-boot-starter`. If Firefly artifacts have not been published to a remote Maven repository yet, publish them locally from the Firefly source repository first:
 
 ```powershell
-.\gradlew.bat test
+cd E:\workSpace\firefly
+.\gradlew.bat publishToMavenLocal
 ```
 
-## Start Server
+Maven dependency:
+
+```xml
+<dependency>
+    <groupId>com.firefly</groupId>
+    <artifactId>firefly-spring-boot-starter</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
+Gradle dependency:
+
+```groovy
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    implementation "com.firefly:firefly-spring-boot-starter:1.0.0"
+}
+```
+
+The business service runs as a remote Executor and actively connects to Firefly Gateway. Generate an Integration Key from Admin UI, then configure the service:
+
+```yaml
+firefly:
+  executor:
+    name: billing-executor
+    instance-id: ${HOSTNAME:billing-service-local}
+    service-name: billing-service
+    auto-start: true
+    gateway-addresses:
+      - 127.0.0.1:9700
+    integration-key: ${FIREFLY_INTEGRATION_KEY}
+    job-registration:
+      enabled: true
+      admin-url: http://127.0.0.1:9710
+      update-existing: false
+      fail-fast: false
+```
+
+`job-registration.enabled` is `true` by default. After the Spring application is ready, the Starter calls Admin API: it creates missing jobs automatically and leaves existing online definitions unchanged by default. Set `update-existing: true` when code should own the complete job definition, and set `fail-fast: true` when synchronization failure should stop service startup.
+
+## Create Jobs with Annotation
+
+Add `@FireflyJob` to a method on any Spring Bean. The method must return `void` and accept either no arguments or one `ExecutionContext` argument.
+
+```java
+import com.firefly.domain.ExecutionContext;
+import com.firefly.spring.annotation.FireflyJob;
+import org.springframework.stereotype.Component;
+
+@Component
+public class BillingJobs {
+    @FireflyJob(
+            name = "Daily billing",
+            cron = "0 0 2 * * *",
+            zoneId = "Asia/Shanghai",
+            groupId = "billing",
+            parameters = {"tenant=primary"}
+    )
+    public void billingHandler(ExecutionContext context) {
+        System.out.println("executionId=" + context.executionId());
+        // run business code
+    }
+}
+```
+
+By default, the Starter uses the fully qualified method name as both automatic entrypoint and job ID:
+
+```text
+com.example.BillingJobs#billingHandler
+```
+
+No global jobId or handlerName is required. The method is registered as a local handler, the job definition is synchronized to Firefly Admin API, and the scheduler center triggers the handler through Gateway.
+
+When one method needs multiple schedules, repeat `@FireflyJob` and provide a unique `key` for each declaration:
+
+```java
+@FireflyJob(key = "daily", name = "Daily billing", cron = "0 0 2 * * *", zoneId = "Asia/Shanghai")
+@FireflyJob(key = "hourly", name = "Hourly billing check", cron = "0 0 * * * *", zoneId = "Asia/Shanghai")
+public void billingHandler(ExecutionContext context) {
+    // run business code
+}
+```
+
+## Start Firefly Server
 
 The default profile is `pg`, which connects to local PostgreSQL:
 
@@ -65,7 +156,9 @@ Prometheus Metrics:
 http://127.0.0.1:9711/metrics
 ```
 
-## First Job
+## Embedded Java Job
+
+If you are not using Spring Boot, create a scheduler inside the Java process and register jobs directly:
 
 ```java
 JobDefinition job = JobDefinition.builder()
@@ -83,4 +176,4 @@ JobDefinition job = JobDefinition.builder()
         .build();
 ```
 
-Spring Boot projects can register jobs through `FireflyJobRegistration` beans or `@FireflyJob`. Remote services can connect to the scheduler center with the Netty Executor Client.
+Spring Boot projects can still use `FireflyJobRegistration` beans for dynamic cases, but fixed application jobs should prefer `@FireflyJob`.

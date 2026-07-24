@@ -1,25 +1,116 @@
 ---
 title: 快速开始
-description: 在本地启动 Firefly Server、Admin UI 和示例任务。
+description: 在本地启动 Firefly Server、Admin UI，并通过 Spring Boot 注解快速创建任务。
 ---
 
 # 快速开始
 
-Firefly 当前以 Java 21 和 Gradle 多模块工程组织。推荐先在本地启动 Server，再打开独立 Admin UI 检查任务、执行器、节点和插件状态。
+Firefly 当前以 Java 21 和 Gradle 多模块工程组织。推荐先启动 Firefly Server，再在业务 Spring Boot 服务中引入 starter，通过 `@FireflyJob` 注解自动注册 handler 并创建任务。
 
 ## 环境要求
 
 - JDK 21
+- Spring Boot 3.x 业务项目
 - Node.js 18 或更高版本，用于运行 Admin UI 和本站点
 - 本地 PostgreSQL 可选；快速验证可以切换到 H2 或 memory profile
 
-## 运行测试
+## Spring Boot 快速集成
+
+业务项目推荐直接使用 `firefly-spring-boot-starter`。如果 Firefly 依赖还没有发布到远端 Maven 仓库，可以先在 Firefly 源码仓库执行一次本地发布：
 
 ```powershell
-.\gradlew.bat test
+cd E:\workSpace\firefly
+.\gradlew.bat publishToMavenLocal
 ```
 
-## 启动 Server
+Maven 依赖：
+
+```xml
+<dependency>
+    <groupId>com.firefly</groupId>
+    <artifactId>firefly-spring-boot-starter</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
+Gradle 依赖：
+
+```groovy
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    implementation "com.firefly:firefly-spring-boot-starter:1.0.0"
+}
+```
+
+业务服务作为远程 Executor 主动连接 Firefly Gateway。先在 Admin UI 生成 Integration Key，然后写入业务服务配置：
+
+```yaml
+firefly:
+  executor:
+    name: billing-executor
+    instance-id: ${HOSTNAME:billing-service-local}
+    service-name: billing-service
+    auto-start: true
+    gateway-addresses:
+      - 127.0.0.1:9700
+    integration-key: ${FIREFLY_INTEGRATION_KEY}
+    job-registration:
+      enabled: true
+      admin-url: http://127.0.0.1:9710
+      update-existing: false
+      fail-fast: false
+```
+
+`job-registration.enabled` 默认就是 `true`。Starter 会在 Spring 应用启动完成后调用 Admin API：任务不存在时自动创建；任务已存在时默认保持线上配置不变。需要让代码声明覆盖已有任务时，设置 `update-existing: true`；需要同步失败就阻止业务服务启动时，设置 `fail-fast: true`。
+
+## 使用注解自动创建任务
+
+在任意 Spring Bean 的方法上添加 `@FireflyJob`。方法必须返回 `void`，参数可以为空，也可以接收一个 `ExecutionContext`。
+
+```java
+import com.firefly.domain.ExecutionContext;
+import com.firefly.spring.annotation.FireflyJob;
+import org.springframework.stereotype.Component;
+
+@Component
+public class BillingJobs {
+    @FireflyJob(
+            name = "每日账单处理",
+            cron = "0 0 2 * * *",
+            zoneId = "Asia/Shanghai",
+            groupId = "billing",
+            parameters = {"tenant=primary"}
+    )
+    public void billingHandler(ExecutionContext context) {
+        System.out.println("executionId=" + context.executionId());
+        // run business code
+    }
+}
+```
+
+默认情况下，Starter 使用方法全限定名作为自动入口和任务 ID：
+
+```text
+com.example.BillingJobs#billingHandler
+```
+
+因此不需要再手写全局 jobId 或 handlerName。业务方法启动后会被注册为本地 handler，任务定义会同步到 Firefly Admin API，调度中心到点后通过 Gateway 触发这个 handler。
+
+同一个方法需要多个调度计划时，可以重复声明 `@FireflyJob`，并使用唯一 `key` 区分：
+
+```java
+@FireflyJob(key = "daily", name = "每日账单", cron = "0 0 2 * * *", zoneId = "Asia/Shanghai")
+@FireflyJob(key = "hourly", name = "小时账单巡检", cron = "0 0 * * * *", zoneId = "Asia/Shanghai")
+public void billingHandler(ExecutionContext context) {
+    // run business code
+}
+```
+
+## 启动 Firefly Server
 
 默认 profile 是 `pg`，会连接本地 PostgreSQL：
 
@@ -65,9 +156,9 @@ Prometheus Metrics 默认地址：
 http://127.0.0.1:9711/metrics
 ```
 
-## 创建第一个任务
+## 嵌入式 Java 创建任务
 
-嵌入式 Java 任务示例：
+如果不使用 Spring Boot，也可以直接在 Java 进程内创建调度器并注册任务：
 
 ```java
 JobDefinition job = JobDefinition.builder()
@@ -85,4 +176,4 @@ JobDefinition job = JobDefinition.builder()
         .build();
 ```
 
-Spring Boot 项目可以通过 `FireflyJobRegistration` Bean 或 `@FireflyJob` 注解注册任务。远程业务服务可以使用 Netty Executor Client 主动连接调度中心 gateway。
+Spring Boot 项目仍然可以使用 `FireflyJobRegistration` Bean 处理动态场景，但日常固定任务建议优先使用 `@FireflyJob` 注解。
