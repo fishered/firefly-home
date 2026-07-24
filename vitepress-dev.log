@@ -1,0 +1,8 @@
+
+> firefly-home@0.1.0 dev
+> vitepress dev docs --host 127.0.0.1 --port 5173
+
+
+  [32m[1mvitepress[22m v1.6.4[39m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://127.0.0.1:[1m5173[22m/[39m
