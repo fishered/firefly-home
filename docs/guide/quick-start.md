@@ -49,23 +49,20 @@ dependencies {
 业务服务作为远程 Executor 主动连接 Firefly Gateway。先在 Admin UI 生成 Integration Key，然后写入业务服务配置：
 
 ```yaml
+spring:
+  application:
+    name: firefly-example
 firefly:
   executor:
     name: billing-executor
-    instance-id: ${HOSTNAME:billing-service-local}
-    service-name: billing-service
-    auto-start: true
     gateway-addresses:
       - 127.0.0.1:9700
     integration-key: ${FIREFLY_INTEGRATION_KEY}
-    job-registration:
-      enabled: true
-      admin-url: http://127.0.0.1:9710
-      update-existing: false
-      fail-fast: false
+server:
+  port: 80
 ```
 
-`job-registration.enabled` 默认就是 `true`。Starter 会在 Spring 应用启动完成后调用 Admin API：任务不存在时自动创建；任务已存在时默认保持线上配置不变。需要让代码声明覆盖已有任务时，设置 `update-existing: true`；需要同步失败就阻止业务服务启动时，设置 `fail-fast: true`。
+这里保留最小可运行配置即可。`firefly.executor.name` 是当前业务执行器名称，`gateway-addresses` 指向 Firefly Gateway，`integration-key` 使用 Admin UI 生成的 Integration Key。Starter 会使用默认值自动启动 Executor，并在 Spring 应用启动完成后把 `@FireflyJob` 声明的任务同步到 Admin API。
 
 ## 使用注解自动创建任务
 
@@ -177,3 +174,4 @@ JobDefinition job = JobDefinition.builder()
 ```
 
 Spring Boot 项目仍然可以使用 `FireflyJobRegistration` Bean 处理动态场景，但日常固定任务建议优先使用 `@FireflyJob` 注解。
+

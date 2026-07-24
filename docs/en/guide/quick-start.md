@@ -49,23 +49,20 @@ dependencies {
 The business service runs as a remote Executor and actively connects to Firefly Gateway. Generate an Integration Key from Admin UI, then configure the service:
 
 ```yaml
+spring:
+  application:
+    name: firefly-example
 firefly:
   executor:
     name: billing-executor
-    instance-id: ${HOSTNAME:billing-service-local}
-    service-name: billing-service
-    auto-start: true
     gateway-addresses:
       - 127.0.0.1:9700
     integration-key: ${FIREFLY_INTEGRATION_KEY}
-    job-registration:
-      enabled: true
-      admin-url: http://127.0.0.1:9710
-      update-existing: false
-      fail-fast: false
+server:
+  port: 80
 ```
 
-`job-registration.enabled` is `true` by default. After the Spring application is ready, the Starter calls Admin API: it creates missing jobs automatically and leaves existing online definitions unchanged by default. Set `update-existing: true` when code should own the complete job definition, and set `fail-fast: true` when synchronization failure should stop service startup.
+Keep the quick-start configuration minimal. `firefly.executor.name` is the business executor name, `gateway-addresses` points to Firefly Gateway, and `integration-key` should be the Integration Key generated from Admin UI. The Starter uses defaults to start the Executor and synchronizes jobs declared by `@FireflyJob` to Admin API after the Spring application is ready.
 
 ## Create Jobs with Annotation
 
@@ -177,3 +174,4 @@ JobDefinition job = JobDefinition.builder()
 ```
 
 Spring Boot projects can still use `FireflyJobRegistration` beans for dynamic cases, but fixed application jobs should prefer `@FireflyJob`.
+
