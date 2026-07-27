@@ -33,6 +33,8 @@ try (FireflyScheduler scheduler = FireflyScheduler.create()) {
 
 Spring Boot 项目只需要引入一个 Starter。Netty 客户端、处理器发现、任务同步、心跳、重连和 Spring 生命周期均由自动配置完成。
 
+`1.0.0` 已发布到 [Maven Central](https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.0)，无需配置额外 Maven 仓库。
+
 ```xml
 <dependency>
     <groupId>io.github.fishered</groupId>

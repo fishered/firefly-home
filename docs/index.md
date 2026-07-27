@@ -22,6 +22,7 @@ import { withBase } from 'vitepress';
     <div class="ff-actions">
       <a class="ff-button primary" :href="withBase('/guide/quick-start')">快速开始</a>
       <a class="ff-button secondary" :href="withBase('/features/')">查看技术组件</a>
+      <a class="ff-button secondary" href="https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.0">Maven Central</a>
       <a class="ff-button ghost" href="https://github.com/fishered/Firefly">GitHub</a>
     </div>
   </div>
@@ -143,6 +144,7 @@ import { withBase } from 'vitepress';
     </div>
     <div class="ff-actions">
       <a class="ff-button primary" :href="withBase('/guide/quick-start')">阅读快速开始</a>
+      <a class="ff-button secondary" :href="withBase('/reference/maven-central')">查看 1.0.0 构件</a>
       <a class="ff-button secondary" :href="withBase('/community/requirements')">提交需求</a>
     </div>
   </div>

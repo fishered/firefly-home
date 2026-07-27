@@ -4,6 +4,7 @@ const base = process.env.VITEPRESS_BASE ?? '/';
 const asset = (path: string) => `${base}${path}`.replace(/\/{2,}/g, '/');
 const siteRepo = 'https://github.com/fishered/firefly-home';
 const productRepo = 'https://github.com/fishered/Firefly';
+const mavenCentral = 'https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.0';
 
 const sharedTheme: DefaultTheme.Config = {
   logo: '/firefly-mark.svg',
@@ -29,6 +30,7 @@ const zhNav: DefaultTheme.NavItem[] = [
   { text: '文档', link: '/guide/integration' },
   { text: 'API', link: '/reference/admin-api' },
   { text: '对比', link: '/comparison' },
+  { text: 'Maven Central', link: mavenCentral },
   { text: 'GitHub', link: productRepo }
 ];
 
@@ -38,6 +40,7 @@ const enNav: DefaultTheme.NavItem[] = [
   { text: 'Docs', link: '/en/guide/integration' },
   { text: 'API', link: '/en/reference/admin-api' },
   { text: 'Comparison', link: '/en/comparison' },
+  { text: 'Maven Central', link: mavenCentral },
   { text: 'GitHub', link: productRepo }
 ];
 
@@ -65,6 +68,7 @@ const zhSidebar: DefaultTheme.Sidebar = [
   {
     text: '参考文档',
     items: [
+      { text: 'Maven Central', link: '/reference/maven-central' },
       { text: 'Admin API', link: '/reference/admin-api' },
       { text: 'Metrics 指标', link: '/reference/metrics' },
       { text: '数据库结构', link: '/reference/database-schema' },
@@ -105,6 +109,7 @@ const enSidebar: DefaultTheme.Sidebar = [
   {
     text: 'Reference',
     items: [
+      { text: 'Maven Central', link: '/en/reference/maven-central' },
       { text: 'Admin API', link: '/en/reference/admin-api' },
       { text: 'Metrics', link: '/en/reference/metrics' },
       { text: 'Database Schema', link: '/en/reference/database-schema' },
