@@ -29,34 +29,51 @@ try (FireflyScheduler scheduler = FireflyScheduler.create()) {
 
 ## Spring Boot Starter
 
-```java
-@Bean
-FireflyJobRegistration reportJob() {
-    JobDefinition job = JobDefinition.builder()
-            .id("spring-report")
-            .name("Spring Report")
-            .handlerName("reportHandler")
-            .schedule(new CronSchedule("0 0 9 * * *"))
-            .zoneId(ZoneId.of("Asia/Shanghai"))
-            .build();
+Spring Boot applications only need one Starter. It auto-configures the Netty client, handler discovery, job synchronization, heartbeats, reconnection, and Spring lifecycle integration.
 
-    return FireflyJobRegistration.of(job, context -> {
-        // run your task here
-    });
+```xml
+<dependency>
+    <groupId>io.github.fishered</groupId>
+    <artifactId>firefly-spring-boot-starter</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
+The business service runs as a remote Executor and connects to Gateway. Generate an Integration Key in Admin UI for Executor registration and declarative job synchronization.
+
+```yaml
+spring:
+  application:
+    name: billing-service
+firefly:
+  executor:
+    name: billing-executor
+    gateway-addresses:
+      - 127.0.0.1:9700
+    integration-key: ${FIREFLY_INTEGRATION_KEY}
+```
+
+Declare jobs on methods of regular Spring beans. Methods must return `void` and may accept no arguments or one `ExecutionContext`:
+
+```java
+@Component
+public class BillingJobs {
+    @FireflyJob(
+            name = "Daily billing",
+            cron = "0 0 2 * * *",
+            zoneId = "Asia/Shanghai"
+    )
+    public void billingHandler(ExecutionContext context) {
+        // run business code
+    }
 }
 ```
 
-```yaml
-firefly:
-  enabled: true
-  auto-start: true
-  worker-threads: 4
-  worker-thread-name-prefix: firefly-worker
-```
+The fully qualified method name, for example `com.example.BillingJobs#billingHandler`, becomes the default job ID and handler entrypoint. Programmatic `FireflyJobRegistration` remains available for dynamic jobs but is not the recommended entrypoint for fixed schedules.
 
 ## Remote Executor
 
-Business services can actively connect to the scheduler gateway, register handlers, and wait for trigger commands.
+Non-Spring services can use the Netty client directly, connect to Gateway, register handlers, and wait for trigger commands.
 
 ```java
 NettyExecutorClient client = NettyExecutorClient.builder()

@@ -16,18 +16,13 @@ Firefly is organized as a Java 21 and Gradle multi-module project. Start Firefly
 
 ## Spring Boot Quick Integration
 
-Business services should usually use `firefly-spring-boot-starter`. If Firefly artifacts have not been published to a remote Maven repository yet, publish them locally from the Firefly source repository first:
-
-```powershell
-cd E:\workSpace\firefly
-.\gradlew.bat publishToMavenLocal
-```
+Business services only need `firefly-spring-boot-starter`. Releases are published to Maven Central, so no Firefly-specific repository or separate Netty and auto-configuration dependencies are required.
 
 Maven dependency:
 
 ```xml
 <dependency>
-    <groupId>com.firefly</groupId>
+    <groupId>io.github.fishered</groupId>
     <artifactId>firefly-spring-boot-starter</artifactId>
     <version>1.0.0</version>
 </dependency>
@@ -36,15 +31,12 @@ Maven dependency:
 Gradle dependency:
 
 ```groovy
-repositories {
-    mavenLocal()
-    mavenCentral()
-}
-
 dependencies {
-    implementation "com.firefly:firefly-spring-boot-starter:1.0.0"
+    implementation "io.github.fishered:firefly-spring-boot-starter:1.0.0"
 }
 ```
+
+Use `.\gradlew.bat publishToMavenLocal` and enable `mavenLocal()` only when testing an unreleased source build. Production integrations should use an immutable version from Maven Central.
 
 The business service runs as a remote Executor and actively connects to Firefly Gateway. Generate an Integration Key from Admin UI, then configure the service:
 

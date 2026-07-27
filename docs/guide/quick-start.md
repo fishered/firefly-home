@@ -16,18 +16,13 @@ Firefly 当前以 Java 21 和 Gradle 多模块工程组织。推荐先启动 Fir
 
 ## Spring Boot 快速集成
 
-业务项目推荐直接使用 `firefly-spring-boot-starter`。如果 Firefly 依赖还没有发布到远端 Maven 仓库，可以先在 Firefly 源码仓库执行一次本地发布：
-
-```powershell
-cd E:\workSpace\firefly
-.\gradlew.bat publishToMavenLocal
-```
+业务项目只需要引入 `firefly-spring-boot-starter`。正式版本发布在 Maven Central，不需要添加 Firefly 私有仓库，也不需要分别声明 Netty 客户端或自动配置模块。
 
 Maven 依赖：
 
 ```xml
 <dependency>
-    <groupId>com.firefly</groupId>
+    <groupId>io.github.fishered</groupId>
     <artifactId>firefly-spring-boot-starter</artifactId>
     <version>1.0.0</version>
 </dependency>
@@ -36,15 +31,12 @@ Maven 依赖：
 Gradle 依赖：
 
 ```groovy
-repositories {
-    mavenLocal()
-    mavenCentral()
-}
-
 dependencies {
-    implementation "com.firefly:firefly-spring-boot-starter:1.0.0"
+    implementation "io.github.fishered:firefly-spring-boot-starter:1.0.0"
 }
 ```
+
+只有在验证尚未发布的源码版本时，才需要在 Firefly 仓库执行 `.\gradlew.bat publishToMavenLocal`，并在业务项目中启用 `mavenLocal()`。正式集成应直接使用 Maven Central 中不可变的版本。
 
 业务服务作为远程 Executor 主动连接 Firefly Gateway。先在 Admin UI 生成 Integration Key，然后写入业务服务配置：
 
