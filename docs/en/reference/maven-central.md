@@ -1,13 +1,13 @@
 ---
 title: Maven Central
-description: Maven Central coordinates, module dependency chain, and version policy for Firefly 1.0.0.
+description: Maven Central coordinates, module dependency chain, and version policy for Firefly 1.0.1.
 ---
 
 # Maven Central
 
-Firefly `1.0.0` is published to Maven Central under the `io.github.fishered` namespace. Spring Boot applications only need the Starter and do not need a private repository or separate Firefly module declarations.
+Firefly `1.0.1` is published to Maven Central under the `io.github.fishered` namespace. Spring Boot applications only need the Starter and do not need a private repository or separate Firefly module declarations.
 
-[Browse firefly-spring-boot-starter 1.0.0 on Maven Central](https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.0)
+[Browse firefly-spring-boot-starter 1.0.1 on Maven Central](https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.1)
 
 ::: info Indexing delay
 Search results and regional mirrors can take some time to synchronize after a Central Portal release. The Maven coordinates remain unchanged during this period.
@@ -19,7 +19,7 @@ Search results and regional mirrors can take some time to synchronize after a Ce
 <dependency>
     <groupId>io.github.fishered</groupId>
     <artifactId>firefly-spring-boot-starter</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 </dependency>
 ```
 
@@ -33,7 +33,7 @@ repositories {
 }
 
 dependencies {
-    implementation "io.github.fishered:firefly-spring-boot-starter:1.0.0"
+    implementation "io.github.fishered:firefly-spring-boot-starter:1.0.1"
 }
 ```
 
@@ -64,5 +64,4 @@ The resolved tree should include `firefly-spring-boot-starter`, `firefly-spring-
 
 ## Version policy
 
-Released Maven Central versions are immutable. Upgrades must use an explicit new version; fixes after `1.0.0` will use a patch release such as `1.0.1`.
-
+Released Maven Central versions are immutable. Upgrades must use an explicit new version; later fixes will continue to use new patch releases.

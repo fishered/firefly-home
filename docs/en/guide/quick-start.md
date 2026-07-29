@@ -18,8 +18,8 @@ Firefly is organized as a Java 21 and Gradle multi-module project. Start Firefly
 
 Business services only need `firefly-spring-boot-starter`. Releases are published to Maven Central, so no Firefly-specific repository or separate Netty and auto-configuration dependencies are required.
 
-::: tip Firefly 1.0.0 is published
-Browse the release on [Maven Central](https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.0). Central indexing can lag behind a new release, but the Maven coordinates remain unchanged.
+::: tip Firefly 1.0.1 is published
+Browse the release on [Maven Central](https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.1). Central indexing can lag behind a new release, but the Maven coordinates remain unchanged.
 :::
 
 Maven dependency:
@@ -28,7 +28,7 @@ Maven dependency:
 <dependency>
     <groupId>io.github.fishered</groupId>
     <artifactId>firefly-spring-boot-starter</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 </dependency>
 ```
 
@@ -36,7 +36,7 @@ Gradle dependency:
 
 ```groovy
 dependencies {
-    implementation "io.github.fishered:firefly-spring-boot-starter:1.0.0"
+    implementation "io.github.fishered:firefly-spring-boot-starter:1.0.1"
 }
 ```
 

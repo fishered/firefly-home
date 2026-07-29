@@ -5,12 +5,24 @@ description: Firefly JDBC schema 表职责。
 
 # 数据库结构
 
-当前 schema 版本为 `11`。初始化脚本位于：
+<script setup>
+import { withBase } from 'vitepress';
+</script>
+
+当前 schema 版本为 `12`。PostgreSQL 全新安装的权威最小脚本位于：
 
 ```text
-stores/jdbc/src/main/resources/com/firefly/store/jdbc/schema/h2.sql
-stores/jdbc/src/main/resources/com/firefly/store/jdbc/schema/postgresql.sql
-stores/jdbc/src/main/resources/com/firefly/store/jdbc/schema/mysql.sql
+scripts/postgresql/init.sql
+```
+
+<a :href="withBase('/downloads/firefly-postgresql-init-v1.0.1.sql')" download="firefly-postgresql-init-v1.0.1.sql">下载 v1.0.1 PostgreSQL 初始化脚本</a>
+
+已有数据库通过方言对应的增量脚本从当前版本依次迁移。`v12.sql` 位于：
+
+```text
+stores/jdbc/src/main/resources/com/firefly/store/jdbc/schema/migrations/h2/v12.sql
+stores/jdbc/src/main/resources/com/firefly/store/jdbc/schema/migrations/postgresql/v12.sql
+stores/jdbc/src/main/resources/com/firefly/store/jdbc/schema/migrations/mysql/v12.sql
 ```
 
 ## 表职责
@@ -30,7 +42,7 @@ stores/jdbc/src/main/resources/com/firefly/store/jdbc/schema/mysql.sql
 | `firefly_executor_instance_location` | Executor 实例所在 Gateway 和 session fencing |
 | `firefly_audit_log` | Admin 变更审计 |
 | `firefly_job_history` | 任务创建、启停和删除历史 |
-| `firefly_user` | Admin 账号、PBKDF2 密码摘要、角色和版本 |
+| `firefly_user` | Admin 账号、PBKDF2 密码摘要、角色、首次改密状态和版本 |
 | `firefly_integration_key` | Integration Key 的 PBKDF2 摘要和轮换版本 |
 
 ## 初始化模式
@@ -47,4 +59,4 @@ firefly.jdbc.schema.mode=initialize-if-empty
 firefly.jdbc.schema.mode=validate
 ```
 
-`validate` 只检查，不修改数据库。完成外部迁移后，`firefly_schema_version` 必须包含版本 `11`。
+`initialize-if-empty` 会检查当前版本并按顺序执行缺失的增量 SQL。`validate` 只检查，不修改数据库。完成外部迁移后，`firefly_schema_version` 必须包含版本 `12`。

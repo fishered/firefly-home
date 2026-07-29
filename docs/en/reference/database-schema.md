@@ -5,12 +5,24 @@ description: Firefly JDBC schema table responsibilities.
 
 # Database Schema
 
-Current schema version is `11`. Full initialization scripts:
+<script setup>
+import { withBase } from 'vitepress';
+</script>
+
+The current schema version is `12`. The canonical minimal script for a fresh PostgreSQL installation is:
 
 ```text
-stores/jdbc/src/main/resources/com/firefly/store/jdbc/schema/h2.sql
-stores/jdbc/src/main/resources/com/firefly/store/jdbc/schema/postgresql.sql
-stores/jdbc/src/main/resources/com/firefly/store/jdbc/schema/mysql.sql
+scripts/postgresql/init.sql
+```
+
+<a :href="withBase('/downloads/firefly-postgresql-init-v1.0.1.sql')" download="firefly-postgresql-init-v1.0.1.sql">Download the v1.0.1 PostgreSQL initialization script</a>
+
+Existing databases apply each missing dialect migration in order. The schema `12` migrations are:
+
+```text
+stores/jdbc/src/main/resources/com/firefly/store/jdbc/schema/migrations/h2/v12.sql
+stores/jdbc/src/main/resources/com/firefly/store/jdbc/schema/migrations/postgresql/v12.sql
+stores/jdbc/src/main/resources/com/firefly/store/jdbc/schema/migrations/mysql/v12.sql
 ```
 
 ## Tables
@@ -30,7 +42,7 @@ stores/jdbc/src/main/resources/com/firefly/store/jdbc/schema/mysql.sql
 | `firefly_executor_instance_location` | Gateway and session fencing for executor instances |
 | `firefly_audit_log` | Admin change audit |
 | `firefly_job_history` | Job create, enable/disable, and delete history |
-| `firefly_user` | Admin users, PBKDF2 password digest, roles, version |
+| `firefly_user` | Admin users, PBKDF2 password digest, roles, first-login password state, and version |
 | `firefly_integration_key` | PBKDF2 digest and rotation version of Integration Key |
 
 ## Initialization Modes
@@ -45,4 +57,4 @@ For externally managed production migrations:
 firefly.jdbc.schema.mode=validate
 ```
 
-`validate` checks only and does not modify the database.
+`initialize-if-empty` checks the installed version and applies every missing incremental SQL file in order. `validate` checks only and does not modify the database; externally migrated databases must contain schema version `12`.
