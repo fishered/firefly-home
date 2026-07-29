@@ -5,6 +5,10 @@ description: JDBC persistence, shard lease, and fencing token.
 
 # JDBC and HA
 
+<script setup>
+import { withBase } from 'vitepress';
+</script>
+
 Firefly uses JDBC storage for job definitions, nodes, shard leases, executions, outbox, audit logs, and Admin users. H2, PostgreSQL, and MySQL schema scripts are available.
 
 ## Shard Lease
@@ -23,8 +27,11 @@ Runtime cursor CAS, execution creation, and outbox insertion happen in one trans
 
 ## Schema
 
+The current schema version is `12`. Fresh PostgreSQL installations use the canonical minimal script, while existing databases apply ordered dialect migrations.
+
 ```text
-stores/jdbc/src/main/resources/com/firefly/store/jdbc/schema/h2.sql
-stores/jdbc/src/main/resources/com/firefly/store/jdbc/schema/postgresql.sql
-stores/jdbc/src/main/resources/com/firefly/store/jdbc/schema/mysql.sql
+scripts/postgresql/init.sql
+stores/jdbc/src/main/resources/com/firefly/store/jdbc/schema/migrations/{h2,postgresql,mysql}/v12.sql
 ```
+
+<a :href="withBase('/downloads/firefly-postgresql-init-v1.0.1.sql')" download="firefly-postgresql-init-v1.0.1.sql">Download the v1.0.1 PostgreSQL initialization script</a>
