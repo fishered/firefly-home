@@ -5,17 +5,13 @@ description: Firefly JDBC schema 表职责。
 
 # 数据库结构
 
-<script setup>
-import { withBase } from 'vitepress';
-</script>
-
 当前 schema 版本为 `12`。PostgreSQL 全新安装的权威最小脚本位于：
 
 ```text
 scripts/postgresql/init.sql
 ```
 
-<a :href="withBase('/downloads/firefly-postgresql-init-v1.0.1.sql')" download="firefly-postgresql-init-v1.0.1.sql">下载 v1.0.1 PostgreSQL 初始化脚本</a>
+脚本下载、校验和执行方式见[部署说明](../guide/deployment.md#postgresql-数据库初始化)。
 
 已有数据库通过方言对应的增量脚本从当前版本依次迁移。`v12.sql` 位于：
 

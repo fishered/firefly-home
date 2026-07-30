@@ -29,7 +29,13 @@ const zhNav: DefaultTheme.NavItem[] = [
   { text: '快速开始', link: '/guide/quick-start' },
   { text: '文档', link: '/guide/integration' },
   { text: 'API', link: '/reference/admin-api' },
-  { text: 'v1.0.1', link: '/releases/v1.0.1' },
+  {
+    text: 'Release Note',
+    items: [
+      { text: '版本概览', link: '/releases/' },
+      { text: 'v1.0.1', link: '/releases/v1.0.1' }
+    ]
+  },
   { text: '对比', link: '/comparison' },
   { text: 'Maven Central', link: mavenCentral },
   { text: 'GitHub', link: productRepo }
@@ -40,7 +46,13 @@ const enNav: DefaultTheme.NavItem[] = [
   { text: 'Quick Start', link: '/en/guide/quick-start' },
   { text: 'Docs', link: '/en/guide/integration' },
   { text: 'API', link: '/en/reference/admin-api' },
-  { text: 'v1.0.1', link: '/en/releases/v1.0.1' },
+  {
+    text: 'Release Note',
+    items: [
+      { text: 'Overview', link: '/en/releases/' },
+      { text: 'v1.0.1', link: '/en/releases/v1.0.1' }
+    ]
+  },
   { text: 'Comparison', link: '/en/comparison' },
   { text: 'Maven Central', link: mavenCentral },
   { text: 'GitHub', link: productRepo }
@@ -71,12 +83,18 @@ const zhSidebar: DefaultTheme.Sidebar = [
     text: '参考文档',
     items: [
       { text: 'Maven Central', link: '/reference/maven-central' },
-      { text: 'v1.0.1 发布说明', link: '/releases/v1.0.1' },
       { text: 'Admin API', link: '/reference/admin-api' },
       { text: 'Metrics 指标', link: '/reference/metrics' },
       { text: '数据库结构', link: '/reference/database-schema' },
       { text: '同类产品对比', link: '/comparison' },
       { text: '选用优势', link: '/why-firefly' }
+    ]
+  },
+  {
+    text: 'Release Note',
+    items: [
+      { text: '版本概览', link: '/releases/' },
+      { text: 'v1.0.1', link: '/releases/v1.0.1' }
     ]
   },
   {
@@ -113,12 +131,18 @@ const enSidebar: DefaultTheme.Sidebar = [
     text: 'Reference',
     items: [
       { text: 'Maven Central', link: '/en/reference/maven-central' },
-      { text: 'v1.0.1 Release Notes', link: '/en/releases/v1.0.1' },
       { text: 'Admin API', link: '/en/reference/admin-api' },
       { text: 'Metrics', link: '/en/reference/metrics' },
       { text: 'Database Schema', link: '/en/reference/database-schema' },
       { text: 'Comparison', link: '/en/comparison' },
       { text: 'Why Firefly', link: '/en/why-firefly' }
+    ]
+  },
+  {
+    text: 'Release Note',
+    items: [
+      { text: 'Overview', link: '/en/releases/' },
+      { text: 'v1.0.1', link: '/en/releases/v1.0.1' }
     ]
   },
   {

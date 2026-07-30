@@ -144,7 +144,7 @@ import { withBase } from 'vitepress';
     </div>
     <div class="ff-actions">
       <a class="ff-button primary" :href="withBase('/guide/quick-start')">阅读快速开始</a>
-      <a class="ff-button secondary" :href="withBase('/releases/v1.0.1')">查看 v1.0.1 更新</a>
+      <a class="ff-button secondary" :href="withBase('/releases/')">查看 Release Note</a>
       <a class="ff-button secondary" :href="withBase('/community/requirements')">提交需求</a>
     </div>
   </div>

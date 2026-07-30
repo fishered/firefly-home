@@ -5,17 +5,13 @@ description: Firefly JDBC schema table responsibilities.
 
 # Database Schema
 
-<script setup>
-import { withBase } from 'vitepress';
-</script>
-
 The current schema version is `12`. The canonical minimal script for a fresh PostgreSQL installation is:
 
 ```text
 scripts/postgresql/init.sql
 ```
 
-<a :href="withBase('/downloads/firefly-postgresql-init-v1.0.1.sql')" download="firefly-postgresql-init-v1.0.1.sql">Download the v1.0.1 PostgreSQL initialization script</a>
+See [Deployment](../guide/deployment.md#postgresql-database-initialization) for the script download, checksum, and execution instructions.
 
 Existing databases apply each missing dialect migration in order. The schema `12` migrations are:
 

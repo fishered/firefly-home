@@ -5,10 +5,6 @@ description: Firefly 的 JDBC 持久化、shard lease 和 fencing token。
 
 # JDBC 与 HA
 
-<script setup>
-import { withBase } from 'vitepress';
-</script>
-
 Firefly 使用 JDBC 存储承载任务定义、节点、shard lease、execution、outbox、审计和 Admin 用户数据。当前支持 H2、PostgreSQL 和 MySQL 方言脚本。
 
 ## Shard Lease
@@ -34,4 +30,4 @@ scripts/postgresql/init.sql
 stores/jdbc/src/main/resources/com/firefly/store/jdbc/schema/migrations/{h2,postgresql,mysql}/v12.sql
 ```
 
-<a :href="withBase('/downloads/firefly-postgresql-init-v1.0.1.sql')" download="firefly-postgresql-init-v1.0.1.sql">下载 v1.0.1 PostgreSQL 初始化脚本</a>
+脚本下载、校验和执行方式见[部署说明](../guide/deployment.md#postgresql-数据库初始化)。
