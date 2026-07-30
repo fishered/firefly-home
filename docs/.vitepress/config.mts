@@ -163,7 +163,8 @@ export default defineConfig({
   lastUpdated: true,
   head: [
     ['meta', { name: 'theme-color', content: '#172033' }],
-    ['link', { rel: 'icon', href: asset('favicon.svg'), type: 'image/svg+xml' }]
+    ['link', { rel: 'icon', href: asset('favicon.svg'), type: 'image/svg+xml' }],
+    ['script', { src: asset('language-bootstrap.js') }]
   ],
   themeConfig: {
     ...sharedTheme,
