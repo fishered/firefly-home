@@ -18,8 +18,8 @@ Firefly 当前以 Java 21 和 Gradle 多模块工程组织。推荐先启动 Fir
 
 业务项目只需要引入 `firefly-spring-boot-starter`。正式版本发布在 Maven Central，不需要添加 Firefly 私有仓库，也不需要分别声明 Netty 客户端或自动配置模块。
 
-::: tip Firefly 1.0.1 已发布
-正式构件可在 [Maven Central](https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.1) 查看。Central 索引可能在发布后延迟一段时间，但 Maven 坐标保持不变。
+::: tip Firefly 1.0.2
+`1.0.2` 通过 tag 驱动的流程发布。升级前请在 [Maven Central](https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.2) 确认构件已完成索引；索引尚未完成时继续使用 `1.0.1`。
 :::
 
 Maven 依赖：
@@ -28,7 +28,7 @@ Maven 依赖：
 <dependency>
     <groupId>io.github.fishered</groupId>
     <artifactId>firefly-spring-boot-starter</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 </dependency>
 ```
 
@@ -36,7 +36,7 @@ Gradle 依赖：
 
 ```groovy
 dependencies {
-    implementation "io.github.fishered:firefly-spring-boot-starter:1.0.1"
+    implementation "io.github.fishered:firefly-spring-boot-starter:1.0.2"
 }
 ```
 
