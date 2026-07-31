@@ -13,6 +13,32 @@ http://127.0.0.1:9710
 
 Admin UI listens on `http://127.0.0.1:9720` and proxies browser-side `/api/*` requests to Java Admin HTTP API.
 
+## Implementation boundary
+
+Admin API continues to use JDK `HttpServer`, with runtime responsibilities separated as follows:
+
+```text
+AdminHttpPlugin             assembly, startup, and shutdown
+AdminHttpRouter             route matching
+AdminRouteRegistration      route, controller, and policy binding
+AdminAuthorizationService   authentication and role decisions
+AdminRequestReader          request-body and JSON boundaries
+Admin*Controller            domain operations
+AdminHttpResponder          consistent JSON and error responses
+```
+
+Authorization no longer checks business path strings such as `/api/users` or `/trigger`. Each route group receives an `AdminRoutePolicy` during registration, so a new endpoint must declare its access role and path reorganization cannot silently change permissions.
+
+## Roles and request limits
+
+| Role | Typical access |
+|---|---|
+| `READER` | `GET` and `HEAD` queries |
+| `OPERATOR` | Job changes, manual triggers, execution cancellation, and Outbox requeue |
+| `ADMIN` | Users, Integration Keys, and management actions without a narrower policy |
+
+Login, health, and other public endpoints use an explicit anonymous policy. Admin API also enforces shared limits for request bodies, page sizes, and batch operations before a domain controller runs. These controls are server-side security boundaries; hiding a button in Admin UI is not authorization.
+
 ## Authentication
 
 | Method | Path | Description |

@@ -17,6 +17,12 @@ description: Firefly scheduler-core 的时间、策略和执行边界。
 - 本地 handler 注册表
 - 可替换 Clock，便于测试时间语义
 
+## 可执行调度类型
+
+任务定义只接受运行时可以持久化并执行的调度类型。`CronSchedule` 映射为 `CRON`，`FixedRateSchedule` 映射为 `FIXED_RATE`；其他 `Schedule` 实现默认标记为 `UNSUPPORTED`，并在 `JobDefinition` 构建阶段被拒绝。
+
+这个校验让 API、持久化和调度引擎使用同一份能力认知。扩展新的调度类型时，必须同时完成领域类型、时间计算、存储编码、Admin API/UI 和兼容测试，不能只实现一个 Java 接口就让任务进入数据库。
+
 ## 时间规则
 
 Firefly 要求任务显式声明 `ZoneId`。cron 表达式按任务本地时间计算，运行态游标统一保存为 UTC `Instant`。

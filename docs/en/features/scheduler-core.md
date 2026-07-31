@@ -17,6 +17,12 @@ description: Time, policy, and execution boundaries in Firefly scheduler-core.
 - local handler registry
 - replaceable Clock for tests
 
+## Executable schedule types
+
+Job definitions accept only schedule types that the runtime can persist and execute. `CronSchedule` maps to `CRON`, and `FixedRateSchedule` maps to `FIXED_RATE`. Other `Schedule` implementations default to `UNSUPPORTED` and are rejected while building `JobDefinition`.
+
+This keeps API, persistence, and scheduler-engine capability aligned. A new schedule type must add its domain model, time calculation, storage encoding, Admin API/UI support, and compatibility tests together; implementing one Java interface is not enough to persist a job.
+
 ## Time Rules
 
 Jobs explicitly declare a `ZoneId`. Cron expressions are calculated in the job's local time, while runtime cursors are stored as UTC `Instant` values.

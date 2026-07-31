@@ -7,6 +7,16 @@ description: 远程业务执行器的注册、心跳、触发和结果回传。
 
 Netty 是 Firefly 当前默认的远程 Executor transport。它负责长连接、注册、心跳、触发命令、ACK 和结果上报，不进入 scheduler-core。
 
+## 模块与序列化边界
+
+```text
+transports/netty-protocol   wire record、消息类型、Jackson JSON codec
+transports/netty            Gateway 连接与派发协调
+clients/executor-netty      业务侧 Executor Client 与幂等适配
+```
+
+线上传输使用明确的 JSON wire model，不使用 JDK 默认序列化。领域 record 会先映射为协议 record，再由 Jackson 编解码；新增字段必须考虑旧端缺失字段、消息类型和协议版本协商，不能直接把任意领域对象写入网络。
+
 ## 协议边界
 
 ```text
@@ -44,3 +54,9 @@ firefly:
 ```
 
 Executor 只有收到 Gateway 的 `REGISTERED` 响应后，才表示实例已经可以接收任务。
+
+## 结果持久化背压
+
+Gateway 收到 ACK 或执行结果后，会把持久化工作交给独立的有界执行器，避免在 Netty EventLoop 上执行 JDBC。工作队列饱和时，任务进入同样有界的延迟重试区；等待次数、等待间隔和重试容量都有上限，关闭时会停止后续等待。
+
+当工作队列恢复到低水位后，Gateway 恢复自动读取；重试容量或次数耗尽时返回明确拒绝并更新对应执行状态。这个机制只保护瞬时数据库抖动，不是无限缓存，也没有在 `1.0.2` 中增加语义未定义的失败注册表。

@@ -13,9 +13,24 @@ Firefly 插件用于承载可选能力，例如指标、告警、审计扩展和
 public interface FireflyPlugin extends AutoCloseable {
     String id();
 
+    default FireflyPluginCompatibility compatibility() {
+        return FireflyPluginCompatibility.current();
+    }
+
     void start(FireflyPluginContext context);
 }
 ```
+
+`compatibility()` 声明插件支持的宿主 Plugin API level 范围。当前 API level 为 `1`，旧 1.x 插件通过默认方法继续声明 level 1，无需仅因 Firefly 升级到 `1.0.2` 而重新编译。
+
+```java
+@Override
+public FireflyPluginCompatibility compatibility() {
+    return new FireflyPluginCompatibility(1, 2);
+}
+```
+
+宿主会先校验所有已启用插件，再启动其中任何一个。不支持当前 level、返回非法范围或重复 ID 都会阻止节点启动，避免插件集合只启动一半。产品版本和 Plugin API level 是独立概念；只有 SPI 契约发生破坏性变化时才提升 API level。
 
 插件通过 `FireflyPluginContext` 获取可选运行时能力：
 
