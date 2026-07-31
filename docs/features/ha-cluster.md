@@ -31,3 +31,24 @@ stores/jdbc/src/main/resources/com/firefly/store/jdbc/schema/migrations/{h2,post
 ```
 
 脚本下载、校验和执行方式见[部署说明](../guide/deployment.md#postgresql-数据库初始化)。
+
+## 受控分片扩容
+
+`firefly.scheduler.shard-count` 是集群不变量，不能通过滚动修改配置直接改变。`v1.0.2` 提供 `expand-online` 维护动作，只允许增加分片数，并允许纯 Gateway/Executor 数据面继续在线。
+
+操作前必须满足：
+
+1. 备份数据库并记录当前 shard count。
+2. drain 并停止所有带 `SCHEDULER`、`STANDBY` 或 `API` 角色的节点。
+3. 确认没有活动 execution，也没有状态非 `DONE`/`DEAD` 的 Outbox 记录。
+4. 所有待重启控制面节点准备相同的目标 shard count。
+
+以 PostgreSQL profile 扩容到 64 个 shard：
+
+```powershell
+.\gradlew.bat :server:launcher:migrateSchema --args="--firefly.config.profile=pg --firefly.schema.action=expand-online --firefly.schema.reshard.confirm=true --firefly.scheduler.shard-count=64"
+```
+
+工具会在数据库迁移锁和单个事务内重算全部 job 的 `shard_id`、更新 `scheduler.shard-count` 与 `jobs.revision`，并删除旧 lease。成功后使用目标 shard count 启动 Scheduler/API 节点并观察 lease 重新分配。
+
+`expand-online` 不支持缩容，也不是所有角色无感的双路由切换。命令失败时事务回滚；控制面节点仍应保持下线，先读取数据库中的实际 shard count，再决定重试或按原配置恢复。缩容必须安排全停机窗口并使用 `firefly.schema.action=reshard`。

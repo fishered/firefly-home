@@ -1,13 +1,13 @@
 ---
 title: Maven Central
-description: Maven Central coordinates, module dependency chain, and version policy for Firefly 1.0.1.
+description: Maven Central coordinates, module dependency chain, and version policy for Firefly 1.0.2.
 ---
 
 # Maven Central
 
-Firefly `1.0.1` is published to Maven Central under the `io.github.fishered` namespace. Spring Boot applications only need the Starter and do not need a private repository or separate Firefly module declarations.
+Firefly is published to Maven Central under the `io.github.fishered` namespace. Spring Boot applications only need the Starter and do not need a private repository or separate Firefly module declarations.
 
-[Browse firefly-spring-boot-starter 1.0.1 on Maven Central](https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.1)
+[Browse firefly-spring-boot-starter 1.0.2 on Maven Central](https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.2)
 
 ::: info Indexing delay
 Search results and regional mirrors can take some time to synchronize after a Central Portal release. The Maven coordinates remain unchanged during this period.
@@ -19,7 +19,7 @@ Search results and regional mirrors can take some time to synchronize after a Ce
 <dependency>
     <groupId>io.github.fishered</groupId>
     <artifactId>firefly-spring-boot-starter</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 </dependency>
 ```
 
@@ -33,7 +33,7 @@ repositories {
 }
 
 dependencies {
-    implementation "io.github.fishered:firefly-spring-boot-starter:1.0.1"
+    implementation "io.github.fishered:firefly-spring-boot-starter:1.0.2"
 }
 ```
 
@@ -45,6 +45,7 @@ The Starter resolves its required modules through the published POM dependency c
 | --- | --- |
 | `scheduler-core` | Scheduling domain model, routing, and storage contracts |
 | `plugin-api` | Extension API for external plugins |
+| `netty-protocol` | JSON wire models and codecs shared by Gateway and Executor |
 | `netty` | Protocol and transport shared by Gateway and Executor |
 | `executor-netty` | Netty Executor client used by business services |
 | `firefly-spring-boot-autoconfigure` | Executor, job annotation, and Spring lifecycle auto-configuration |
@@ -60,7 +61,7 @@ Refresh Maven metadata and inspect the dependency tree:
 mvn -U dependency:tree
 ```
 
-The resolved tree should include `firefly-spring-boot-starter`, `firefly-spring-boot-autoconfigure`, `executor-netty`, `netty`, and `scheduler-core`.
+The resolved tree should include `firefly-spring-boot-starter`, `firefly-spring-boot-autoconfigure`, `executor-netty`, `netty`, `netty-protocol`, and `scheduler-core`.
 
 ## Version policy
 

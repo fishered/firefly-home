@@ -13,6 +13,32 @@ http://127.0.0.1:9710
 
 Admin UI 默认监听 `http://127.0.0.1:9720`，并将浏览器侧 `/api/*` 代理到 Java Admin HTTP API。
 
+## 实现边界
+
+Admin API 继续使用 JDK `HttpServer`，但运行时职责已拆分：
+
+```text
+AdminHttpPlugin             装配、启动和关闭
+AdminHttpRouter             路由匹配
+AdminRouteRegistration      路由、Controller 与策略绑定
+AdminAuthorizationService   认证与角色判定
+AdminRequestReader          请求体和 JSON 边界
+Admin*Controller            领域操作
+AdminHttpResponder          统一 JSON 与错误响应
+```
+
+授权层不再检查 `/api/users`、`/trigger` 等业务路径字符串。每组路由在注册时绑定 `AdminRoutePolicy`，新增端点必须同时声明访问角色，因此路径组织变化不会悄悄改变权限。
+
+## 角色与请求限制
+
+| 角色 | 典型权限 |
+|---|---|
+| `READER` | `GET`、`HEAD` 查询 |
+| `OPERATOR` | 修改任务、手动触发、取消执行、重放 Outbox |
+| `ADMIN` | 用户、Integration Key 和未单独授权的管理动作 |
+
+登录和健康检查等公开端点使用显式匿名策略。Admin API 还统一限制请求体、分页大小和批量操作数量；超限输入会在进入领域 Controller 前被拒绝。角色规则和限制属于服务端安全边界，不能只依靠 Admin UI 隐藏按钮。
+
 ## 认证
 
 | 方法 | 路径 | 说明 |

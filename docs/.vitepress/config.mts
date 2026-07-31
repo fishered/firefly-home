@@ -4,7 +4,7 @@ const base = process.env.VITEPRESS_BASE ?? '/';
 const asset = (path: string) => `${base}${path}`.replace(/\/{2,}/g, '/');
 const siteRepo = 'https://github.com/fishered/firefly-home';
 const productRepo = 'https://github.com/fishered/Firefly';
-const mavenCentral = 'https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.1';
+const mavenCentral = 'https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.2';
 
 const sharedTheme: DefaultTheme.Config = {
   logo: '/firefly-mark.svg',
@@ -33,6 +33,7 @@ const zhNav: DefaultTheme.NavItem[] = [
     text: 'Release Note',
     items: [
       { text: '版本概览', link: '/releases/' },
+      { text: 'v1.0.2', link: '/releases/v1.0.2' },
       { text: 'v1.0.1', link: '/releases/v1.0.1' }
     ]
   },
@@ -50,6 +51,7 @@ const enNav: DefaultTheme.NavItem[] = [
     text: 'Release Note',
     items: [
       { text: 'Overview', link: '/en/releases/' },
+      { text: 'v1.0.2', link: '/en/releases/v1.0.2' },
       { text: 'v1.0.1', link: '/en/releases/v1.0.1' }
     ]
   },
@@ -94,6 +96,7 @@ const zhSidebar: DefaultTheme.Sidebar = [
     text: 'Release Note',
     items: [
       { text: '版本概览', link: '/releases/' },
+      { text: 'v1.0.2', link: '/releases/v1.0.2' },
       { text: 'v1.0.1', link: '/releases/v1.0.1' }
     ]
   },
@@ -142,6 +145,7 @@ const enSidebar: DefaultTheme.Sidebar = [
     text: 'Release Note',
     items: [
       { text: 'Overview', link: '/en/releases/' },
+      { text: 'v1.0.2', link: '/en/releases/v1.0.2' },
       { text: 'v1.0.1', link: '/en/releases/v1.0.1' }
     ]
   },
