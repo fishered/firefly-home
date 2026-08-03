@@ -9,6 +9,7 @@ description: Firefly 各版本的发布日期、处理范围和升级入口。
 
 | 版本 | 发布日期 | 处理范围 |
 |---|---|---|
+| [v1.0.3](./v1.0.3.md) | 2026-08-02 | 生命周期与输入边界：Execution/Outbox 事务入口、关键 Admin 写请求类型化、后台限时等待关闭、typed Netty frame、版本化快照 envelope |
 | [v1.0.2](./v1.0.2.md) | 2026-07-31 | 架构与恢复边界：声明式 Admin RBAC、Netty wire model 与背压、插件 API level、JDBC fencing、真实数据库故障验证和受控分片扩容 |
 | [v1.0.1](./v1.0.1.md) | 2026-07-29 | 生产可用性加固：默认安全配置、数据库迁移、执行器资源边界、派发超时、Starter 健康检查与构建可靠性 |
 
