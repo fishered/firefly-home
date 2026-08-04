@@ -5,6 +5,18 @@ const asset = (path: string) => `${base}${path}`.replace(/\/{2,}/g, '/');
 const siteRepo = 'https://github.com/fishered/firefly-home';
 const productRepo = 'https://github.com/fishered/Firefly';
 const mavenCentral = 'https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.2';
+const releaseVersions = ['v1.0.4', 'v1.0.3', 'v1.0.2', 'v1.0.1'];
+
+const releaseItems = (localePrefix: string, moreText: string) => {
+  const items = releaseVersions.slice(0, 3).map((version) => ({
+    text: version,
+    link: `${localePrefix}/releases/${version}`
+  }));
+  if (releaseVersions.length > 3) {
+    items.push({ text: moreText, link: `${localePrefix}/releases/` });
+  }
+  return items;
+};
 
 const sharedTheme: DefaultTheme.Config = {
   logo: '/firefly-mark.svg',
@@ -31,11 +43,7 @@ const zhNav: DefaultTheme.NavItem[] = [
   { text: 'API', link: '/reference/admin-api' },
   {
     text: 'Release Note',
-    items: [
-      { text: '版本概览', link: '/releases/' },
-      { text: 'v1.0.2', link: '/releases/v1.0.2' },
-      { text: 'v1.0.1', link: '/releases/v1.0.1' }
-    ]
+    items: releaseItems('', '查看更多...')
   },
   { text: '对比', link: '/comparison' },
   { text: 'Maven Central', link: mavenCentral },
@@ -49,11 +57,7 @@ const enNav: DefaultTheme.NavItem[] = [
   { text: 'API', link: '/en/reference/admin-api' },
   {
     text: 'Release Note',
-    items: [
-      { text: 'Overview', link: '/en/releases/' },
-      { text: 'v1.0.2', link: '/en/releases/v1.0.2' },
-      { text: 'v1.0.1', link: '/en/releases/v1.0.1' }
-    ]
+    items: releaseItems('/en', 'More...')
   },
   { text: 'Comparison', link: '/en/comparison' },
   { text: 'Maven Central', link: mavenCentral },
@@ -94,11 +98,7 @@ const zhSidebar: DefaultTheme.Sidebar = [
   },
   {
     text: 'Release Note',
-    items: [
-      { text: '版本概览', link: '/releases/' },
-      { text: 'v1.0.2', link: '/releases/v1.0.2' },
-      { text: 'v1.0.1', link: '/releases/v1.0.1' }
-    ]
+    items: releaseItems('', '查看更多...')
   },
   {
     text: '社区',
@@ -143,11 +143,7 @@ const enSidebar: DefaultTheme.Sidebar = [
   },
   {
     text: 'Release Note',
-    items: [
-      { text: 'Overview', link: '/en/releases/' },
-      { text: 'v1.0.2', link: '/en/releases/v1.0.2' },
-      { text: 'v1.0.1', link: '/en/releases/v1.0.1' }
-    ]
+    items: releaseItems('/en', 'More...')
   },
   {
     text: 'Community',

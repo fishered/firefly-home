@@ -9,6 +9,7 @@ This page summarizes published Firefly versions. Each version records only the s
 
 | Version | Release date | Scope |
 |---|---|---|
+| [v1.0.4](./v1.0.4.md) | August 4, 2026 | Scheduler reliability verification: same-due-time PostgreSQL stress tests, concurrent Scheduler/Outbox contention checks, resource observations, and a repeatable stress-test entry point |
 | [v1.0.3](./v1.0.3.md) | August 2, 2026 | Runtime ownership and input boundaries: transactional Execution/Outbox entry points, typed critical Admin writes, bounded worker shutdown, typed Netty frames, and a versioned snapshot envelope |
 | [v1.0.2](./v1.0.2.md) | July 31, 2026 | Architecture and recovery boundaries: declarative Admin RBAC, Netty wire models and backpressure, plugin API levels, JDBC fencing, real-database failure verification, and controlled shard expansion |
 | [v1.0.1](./v1.0.1.md) | July 29, 2026 | Production hardening: secure defaults, database migrations, bounded executor resources, dispatch timeouts, Starter health reporting, and reproducible builds |
