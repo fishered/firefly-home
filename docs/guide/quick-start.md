@@ -14,6 +14,26 @@ Firefly 当前以 Java 21 和 Gradle 多模块工程组织。推荐先启动 Fir
 - Node.js 18 或更高版本，用于运行 Admin UI 和本站点
 - 本地 PostgreSQL 可选；快速验证可以切换到 H2 或 memory profile
 
+## 统一管理依赖版本
+
+Maven 项目推荐只在 `dependencyManagement` 中固定一次 Firefly BOM 版本。后续无论使用 Spring Starter 还是 Remote Adapter，都不再为每个 Firefly 依赖重复填写版本号：
+
+```xml
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>io.github.fishered</groupId>
+            <artifactId>firefly-bom</artifactId>
+            <version>1.0.5</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+```
+
+BOM 不会自动选择“网络上的最新版”，而是把需要维护的 Firefly 版本集中到这一处。这样构建可重复，也可以让 Renovate 或 Dependabot 自动提交 BOM 升级 PR。不使用 BOM 的项目仍可直接在具体依赖上写版本。
+
 ## Spring Boot 快速集成
 
 业务项目只需要引入 `firefly-spring-boot-starter`。正式版本发布在 Maven Central，不需要添加 Firefly 私有仓库，也不需要分别声明 Netty 客户端或自动配置模块。
@@ -28,7 +48,6 @@ Maven 依赖：
 <dependency>
     <groupId>io.github.fishered</groupId>
     <artifactId>firefly-spring-boot-starter</artifactId>
-    <version>1.0.5</version>
 </dependency>
 ```
 
@@ -36,7 +55,8 @@ Gradle 依赖：
 
 ```groovy
 dependencies {
-    implementation "io.github.fishered:firefly-spring-boot-starter:1.0.5"
+    implementation platform("io.github.fishered:firefly-bom:1.0.5")
+    implementation "io.github.fishered:firefly-spring-boot-starter"
 }
 ```
 
@@ -111,7 +131,6 @@ Maven 依赖：
 <dependency>
     <groupId>io.github.fishered</groupId>
     <artifactId>firefly-remote-adapter</artifactId>
-    <version>1.0.5</version>
 </dependency>
 ```
 
@@ -119,7 +138,8 @@ Gradle 依赖：
 
 ```groovy
 dependencies {
-    implementation "io.github.fishered:firefly-remote-adapter:1.0.5"
+    implementation platform("io.github.fishered:firefly-bom:1.0.5")
+    implementation "io.github.fishered:firefly-remote-adapter"
 }
 ```
 

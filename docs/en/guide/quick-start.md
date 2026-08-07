@@ -14,6 +14,26 @@ Firefly is organized as a Java 21 and Gradle multi-module project. Start Firefly
 - Node.js 18 or later for Admin UI and this documentation site
 - PostgreSQL is optional for local development; H2 and memory profiles are available for quick checks
 
+## Manage Dependency Versions Once
+
+Maven projects should pin the Firefly BOM once in `dependencyManagement`. Dependencies for both Spring Starter and Remote Adapter can then omit individual versions:
+
+```xml
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>io.github.fishered</groupId>
+            <artifactId>firefly-bom</artifactId>
+            <version>1.0.5</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+```
+
+The BOM does not dynamically select the latest network release. It keeps builds reproducible while concentrating the Firefly version in one place, where Renovate or Dependabot can update it through a pull request. Projects that do not import the BOM may continue declaring a version on each dependency.
+
 ## Spring Boot Quick Integration
 
 Business services only need `firefly-spring-boot-starter`. Releases are published to Maven Central, so no Firefly-specific repository or separate Netty and auto-configuration dependencies are required.
@@ -28,7 +48,6 @@ Maven dependency:
 <dependency>
     <groupId>io.github.fishered</groupId>
     <artifactId>firefly-spring-boot-starter</artifactId>
-    <version>1.0.5</version>
 </dependency>
 ```
 
@@ -36,7 +55,8 @@ Gradle dependency:
 
 ```groovy
 dependencies {
-    implementation "io.github.fishered:firefly-spring-boot-starter:1.0.5"
+    implementation platform("io.github.fishered:firefly-bom:1.0.5")
+    implementation "io.github.fishered:firefly-spring-boot-starter"
 }
 ```
 
@@ -111,7 +131,6 @@ Maven dependency:
 <dependency>
     <groupId>io.github.fishered</groupId>
     <artifactId>firefly-remote-adapter</artifactId>
-    <version>1.0.5</version>
 </dependency>
 ```
 
@@ -119,7 +138,8 @@ Gradle dependency:
 
 ```groovy
 dependencies {
-    implementation "io.github.fishered:firefly-remote-adapter:1.0.5"
+    implementation platform("io.github.fishered:firefly-bom:1.0.5")
+    implementation "io.github.fishered:firefly-remote-adapter"
 }
 ```
 
