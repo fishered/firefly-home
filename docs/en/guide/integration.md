@@ -87,19 +87,11 @@ Traditional Java, Servlet, Guice, and command-line workers use `firefly-remote-a
 </dependency>
 ```
 
-Create a `TCP` Executor in Admin first, configure the same name, and register the fixed Handler capabilities:
-
-```java
-RemoteExecutorAdapter.run(handlers -> handlers
-        .bind("billing", billingService::execute)
-        .bind("reconcile", billingService::reconcile));
-```
-
-Optional annotation mapping scans explicitly supplied objects only:
+Create a `TCP` Executor in Admin first, configure the same name, and scan explicitly supplied business objects only:
 
 ```java
 final class BillingHandlers {
-    @FireflyHandler(handlerName = "billing")
+    @FireflyHandler
     void billing(ExecutionContext context) {
         // run business code
     }
@@ -108,7 +100,7 @@ final class BillingHandlers {
 RemoteExecutorAdapter.run(RemoteHandlerProvider.annotated(new BillingHandlers()));
 ```
 
-The Remote Adapter requires an existing Executor definition and registers only the running instance and Handler capabilities. Jobs, Cron, routing, retries, and enablement remain managed through Admin UI/API. The language-neutral Agent for Python, Go, and third-party HTTP services is deferred to a later release.
+The Handler entrypoint is derived automatically as `package.Class#method`; the annotation does not allow a manually maintained name. The Remote Adapter requires an existing Executor definition and registers only the running instance and Handler capabilities. Jobs, Cron, routing, retries, and enablement remain managed through Admin UI/API. The language-neutral Agent for Python, Go, and third-party HTTP services is deferred to a later release.
 
 ## Standalone Server
 

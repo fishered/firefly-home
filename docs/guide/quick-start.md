@@ -131,40 +131,47 @@ FIREFLY_EXECUTOR_GATEWAY_ADDRESSES=127.0.0.1:9700
 FIREFLY_EXECUTOR_INTEGRATION_KEY=replace-with-integration-key
 ```
 
-显式注册该服务固定提供的 Handler：
+在明确传入的业务对象上标记该服务固定提供的 Handler：
 
 ```java
+import com.firefly.domain.ExecutionContext;
+import com.firefly.integration.remote.FireflyHandler;
 import com.firefly.integration.remote.RemoteExecutorAdapter;
+import com.firefly.integration.remote.RemoteHandlerProvider;
+
+final class BillingHandlers {
+    @FireflyHandler
+    void billing(ExecutionContext context) {
+        // run business code
+    }
+
+    @FireflyHandler
+    void reconcile() {
+        // run business code
+    }
+}
 
 public final class BillingApplication {
     public static void main(String[] args) throws InterruptedException {
-        BillingService billingService = new BillingService();
-
-        RemoteExecutorAdapter.run(handlers -> handlers
-                .bind("billing", billingService::execute)
-                .bind("reconcile", billingService::reconcile));
+        RemoteExecutorAdapter.run(
+                RemoteHandlerProvider.annotated(new BillingHandlers())
+        );
     }
 }
 ```
 
 `run(...)` 会读取 `firefly.executor.*` / `FIREFLY_EXECUTOR_*` 配置，连接 Gateway，等待收到 `REGISTERED`，并跟随 JVM 优雅关闭。未知 Executor 会启动失败，不会被 Adapter 自动创建。
 
-也可以只扫描明确传入的业务对象：
+Adapter 根据业务类全限定名和方法名自动生成稳定入口：
 
-```java
-final class BillingHandlers {
-    @FireflyHandler(handlerName = "billing")
-    void billing(ExecutionContext context) {
-        // run business code
-    }
-}
-
-RemoteExecutorAdapter.run(
-        RemoteHandlerProvider.annotated(new BillingHandlers())
-);
+```text
+com.example.BillingHandlers#billing
+com.example.BillingHandlers#reconcile
 ```
 
-`@FireflyHandler` 只映射 `handlerName`，不包含 Cron、Job 或路由策略，也不会触发全局 classpath 扫描。服务上线并上报 Handler 后，在 Admin UI 创建 Job，并由控制面维护 Cron、启停、路由和重试策略。
+`@FireflyHandler` 不包含可修改的 `handlerName`、Cron、Job 或路由策略，也不会触发全局 classpath 扫描。同一类的注解重载方法会因为入口重复而在连接前失败。服务上线并上报 Handler 后，在 Admin UI 创建 Job，并由控制面维护 Cron、启停、路由和重试策略。
+
+低层 `.bind(name, handler)` 只保留给外部动态名称和兼容场景；固定业务方法使用自动入口。
 
 Python、Go 和其他语言后续将通过同一个语言无关 Agent 接入，不属于 v1.0.5 的快速集成范围。
 

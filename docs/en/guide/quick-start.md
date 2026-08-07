@@ -131,40 +131,47 @@ FIREFLY_EXECUTOR_GATEWAY_ADDRESSES=127.0.0.1:9700
 FIREFLY_EXECUTOR_INTEGRATION_KEY=replace-with-integration-key
 ```
 
-Explicitly register the fixed Handler capabilities exposed by the service:
+Mark the fixed Handler capabilities on an explicitly supplied business object:
 
 ```java
+import com.firefly.domain.ExecutionContext;
+import com.firefly.integration.remote.FireflyHandler;
 import com.firefly.integration.remote.RemoteExecutorAdapter;
+import com.firefly.integration.remote.RemoteHandlerProvider;
+
+final class BillingHandlers {
+    @FireflyHandler
+    void billing(ExecutionContext context) {
+        // run business code
+    }
+
+    @FireflyHandler
+    void reconcile() {
+        // run business code
+    }
+}
 
 public final class BillingApplication {
     public static void main(String[] args) throws InterruptedException {
-        BillingService billingService = new BillingService();
-
-        RemoteExecutorAdapter.run(handlers -> handlers
-                .bind("billing", billingService::execute)
-                .bind("reconcile", billingService::reconcile));
+        RemoteExecutorAdapter.run(
+                RemoteHandlerProvider.annotated(new BillingHandlers())
+        );
     }
 }
 ```
 
 `run(...)` reads `firefly.executor.*` / `FIREFLY_EXECUTOR_*` configuration, connects to Gateway, waits for `REGISTERED`, and shuts down gracefully with the JVM. An unknown Executor fails startup and is never auto-created by the Adapter.
 
-Annotated mapping is available for explicitly supplied objects only:
+The Adapter derives stable entrypoints from the fully qualified business class and method names:
 
-```java
-final class BillingHandlers {
-    @FireflyHandler(handlerName = "billing")
-    void billing(ExecutionContext context) {
-        // run business code
-    }
-}
-
-RemoteExecutorAdapter.run(
-        RemoteHandlerProvider.annotated(new BillingHandlers())
-);
+```text
+com.example.BillingHandlers#billing
+com.example.BillingHandlers#reconcile
 ```
 
-`@FireflyHandler` maps only `handlerName`; it has no Cron, Job, or routing fields and does not trigger global classpath scanning. After the service is online and reports its Handler capabilities, create the Job in Admin UI and keep Cron, enablement, routing, and retry policies in the control plane.
+`@FireflyHandler` has no mutable `handlerName`, Cron, Job, or routing fields and does not trigger global classpath scanning. Annotated overloads in the same class fail before connecting because they produce a duplicate entrypoint. After the service is online and reports its Handler capabilities, create the Job in Admin UI and keep Cron, enablement, routing, and retry policies in the control plane.
+
+The low-level `.bind(name, handler)` API remains only for external dynamic names and compatibility cases; fixed business methods use automatic entrypoints.
 
 Python, Go, and other languages will use the same language-neutral Agent in a later release and are outside the v1.0.5 quick-start scope.
 

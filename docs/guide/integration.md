@@ -87,19 +87,11 @@ public class BillingJobs {
 </dependency>
 ```
 
-先在 Admin 创建 `TCP` Executor，然后配置同一个名称并注册固定 Handler：
-
-```java
-RemoteExecutorAdapter.run(handlers -> handlers
-        .bind("billing", billingService::execute)
-        .bind("reconcile", billingService::reconcile));
-```
-
-可选注解只扫描明确传入的对象：
+先在 Admin 创建 `TCP` Executor，然后配置同一个名称，并只扫描明确传入的业务对象：
 
 ```java
 final class BillingHandlers {
-    @FireflyHandler(handlerName = "billing")
+    @FireflyHandler
     void billing(ExecutionContext context) {
         // run business code
     }
@@ -108,7 +100,7 @@ final class BillingHandlers {
 RemoteExecutorAdapter.run(RemoteHandlerProvider.annotated(new BillingHandlers()));
 ```
 
-Remote Adapter 强制要求 Executor 定义已经存在，只注册当前运行实例和 Handler 能力。Job、Cron、路由、重试和启停状态仍由 Admin UI/API 管理。Python、Go 和第三方 HTTP 服务的语言无关 Agent 延后到后续版本。
+Handler 入口自动生成为 `包名.类名#方法名`，注解不允许手写名称。Remote Adapter 强制要求 Executor 定义已经存在，只注册当前运行实例和 Handler 能力。Job、Cron、路由、重试和启停状态仍由 Admin UI/API 管理。Python、Go 和第三方 HTTP 服务的语言无关 Agent 延后到后续版本。
 
 ## 独立 Server
 
