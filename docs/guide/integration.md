@@ -36,12 +36,25 @@ Spring Boot 项目只需要引入一个 Starter。Netty 客户端、处理器发
 `1.0.5` 使用 [Maven Central](https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.5) 发布，无需配置额外 Maven 仓库。使用前请先确认 Central 已完成索引。
 
 ```xml
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>io.github.fishered</groupId>
+            <artifactId>firefly-bom</artifactId>
+            <version>1.0.5</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+
 <dependency>
     <groupId>io.github.fishered</groupId>
     <artifactId>firefly-spring-boot-starter</artifactId>
-    <version>1.0.5</version>
 </dependency>
 ```
+
+版本只固定在 BOM 一处；同一项目中的其他 Firefly 依赖也可以省略版本。
 
 业务服务作为远程 Executor 主动连接 Gateway。Integration Key 在 Admin UI 中生成，用于 Executor 注册和声明式任务同步。
 
@@ -83,7 +96,6 @@ public class BillingJobs {
 <dependency>
     <groupId>io.github.fishered</groupId>
     <artifactId>firefly-remote-adapter</artifactId>
-    <version>1.0.5</version>
 </dependency>
 ```
 
