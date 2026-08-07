@@ -1,13 +1,15 @@
 ---
 title: Integration
-description: Firefly supports embedded Java, Spring Boot, standalone Server, and remote Executor integration.
+description: Firefly supports embedded Java, Spring Boot Starter, the non-Spring Remote Adapter, and standalone Server.
 ---
 
 # Integration
 
-Firefly exposes three primary integration paths: traditional Java projects, Spring Boot projects, and standalone Server. Remote executors connect through `transports/netty`.
+Firefly exposes four integration paths: in-process embedded scheduling, Spring Boot Starter, the non-Spring Java Remote Adapter, and standalone Server. Business-side remote executors connect to Gateway while the control plane owns Executor and job definitions.
 
-## Traditional Java
+## Embedded Java
+
+Use embedded Java when the scheduler and business code should run in the same JVM and that process owns the job definitions.
 
 ```java
 try (FireflyScheduler scheduler = FireflyScheduler.create()) {
@@ -31,13 +33,13 @@ try (FireflyScheduler scheduler = FireflyScheduler.create()) {
 
 Spring Boot applications only need one Starter. It auto-configures the Netty client, handler discovery, job synchronization, heartbeats, reconnection, and Spring lifecycle integration.
 
-Version `1.0.2` is distributed through [Maven Central](https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.2), with no additional repository required. Remain on `1.0.1` until Central indexing completes.
+Version `1.0.5` is distributed through [Maven Central](https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.5), with no additional repository required. Confirm that Central indexing has completed before using it.
 
 ```xml
 <dependency>
     <groupId>io.github.fishered</groupId>
     <artifactId>firefly-spring-boot-starter</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.5</version>
 </dependency>
 ```
 
@@ -73,22 +75,40 @@ public class BillingJobs {
 
 The fully qualified method name, for example `com.example.BillingJobs#billingHandler`, becomes the default job ID and handler entrypoint. Programmatic `FireflyJobRegistration` remains available for dynamic jobs but is not the recommended entrypoint for fixed schedules.
 
-## Remote Executor
+## Non-Spring Java Remote Adapter
 
-Non-Spring services can use the Netty client directly, connect to Gateway, register handlers, and wait for trigger commands.
+Traditional Java, Servlet, Guice, and command-line workers use `firefly-remote-adapter`. Regular business services do not need to operate the Netty transport directly.
+
+```xml
+<dependency>
+    <groupId>io.github.fishered</groupId>
+    <artifactId>firefly-remote-adapter</artifactId>
+    <version>1.0.5</version>
+</dependency>
+```
+
+Create a `TCP` Executor in Admin first, configure the same name, and register the fixed Handler capabilities:
 
 ```java
-NettyExecutorClient client = NettyExecutorClient.builder()
-        .gatewayAddresses(List.of("firefly-1:9700", "firefly-2:9700"))
-        .executorName("billing-executor")
-        .serviceName("billing-service")
-        .build()
-        .registerHandler("billingHandler", context -> {
-            // run business code
-        });
-
-client.start();
+RemoteExecutorAdapter.run(handlers -> handlers
+        .bind("billing", billingService::execute)
+        .bind("reconcile", billingService::reconcile));
 ```
+
+Optional annotation mapping scans explicitly supplied objects only:
+
+```java
+final class BillingHandlers {
+    @FireflyHandler(handlerName = "billing")
+    void billing(ExecutionContext context) {
+        // run business code
+    }
+}
+
+RemoteExecutorAdapter.run(RemoteHandlerProvider.annotated(new BillingHandlers()));
+```
+
+The Remote Adapter requires an existing Executor definition and registers only the running instance and Handler capabilities. Jobs, Cron, routing, retries, and enablement remain managed through Admin UI/API. The language-neutral Agent for Python, Go, and third-party HTTP services is deferred to a later release.
 
 ## Standalone Server
 
