@@ -1,15 +1,15 @@
 ---
 title: 集成方式
-description: Firefly 支持嵌入式、Spring Boot、独立 Server 和远程 Executor。
+description: Firefly 支持嵌入式 Java、Spring Boot Starter、非 Spring Remote Adapter 和独立 Server。
 ---
 
 # 集成方式
 
-Firefly 的集成层分成三类入口：传统 Java 项目、Spring Boot 项目、独立 Server。远程执行器通过 `transports/netty` 接入调度中心。
+Firefly 提供四类入口：进程内嵌入式调度、Spring Boot Starter、非 Spring Java Remote Adapter 和独立 Server。业务侧远程执行器主动连接 Gateway，控制面统一管理 Executor 和任务定义。
 
-## 传统 Java 项目
+## 嵌入式 Java 项目
 
-适合 Servlet 老项目、Guice 项目、命令行服务和内部 worker 服务。
+适合调度器与业务代码需要运行在同一个 JVM、且任务定义由该进程维护的场景。
 
 ```java
 try (FireflyScheduler scheduler = FireflyScheduler.create()) {
@@ -33,15 +33,28 @@ try (FireflyScheduler scheduler = FireflyScheduler.create()) {
 
 Spring Boot 项目只需要引入一个 Starter。Netty 客户端、处理器发现、任务同步、心跳、重连和 Spring 生命周期均由自动配置完成。
 
-`1.0.2` 使用 [Maven Central](https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.2) 发布，无需配置额外 Maven 仓库。Central 完成索引前请继续使用 `1.0.1`。
+`1.0.5` 使用 [Maven Central](https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.5) 发布，无需配置额外 Maven 仓库。使用前请先确认 Central 已完成索引。
 
 ```xml
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>io.github.fishered</groupId>
+            <artifactId>firefly-bom</artifactId>
+            <version>1.0.5</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+
 <dependency>
     <groupId>io.github.fishered</groupId>
     <artifactId>firefly-spring-boot-starter</artifactId>
-    <version>1.0.2</version>
 </dependency>
 ```
+
+版本只固定在 BOM 一处；同一项目中的其他 Firefly 依赖也可以省略版本。
 
 业务服务作为远程 Executor 主动连接 Gateway。Integration Key 在 Admin UI 中生成，用于 Executor 注册和声明式任务同步。
 
@@ -75,22 +88,31 @@ public class BillingJobs {
 
 默认任务 ID 和处理器入口均基于方法全限定名生成，例如 `com.example.BillingJobs#billingHandler`，无需手写全局 ID。程序化 `FireflyJobRegistration` 仍可用于运行时动态创建任务，但不是固定任务的推荐入口。
 
-## 远程 Executor
+## 非 Spring Java Remote Adapter
 
-非 Spring 服务可以直接使用 Netty 远程执行器。业务服务主动连接调度中心 Gateway，注册 handler，等待调度中心推送任务。
+传统 Java、Servlet、Guice 和命令行 Worker 使用 `firefly-remote-adapter`。普通业务服务不需要直接操作 Netty 传输细节。
+
+```xml
+<dependency>
+    <groupId>io.github.fishered</groupId>
+    <artifactId>firefly-remote-adapter</artifactId>
+</dependency>
+```
+
+先在 Admin 创建 `TCP` Executor，然后配置同一个名称，并只扫描明确传入的业务对象：
 
 ```java
-NettyExecutorClient client = NettyExecutorClient.builder()
-        .gatewayAddresses(List.of("firefly-1:9700", "firefly-2:9700"))
-        .executorName("billing-executor")
-        .serviceName("billing-service")
-        .build()
-        .registerHandler("billingHandler", context -> {
-            // run business code
-        });
+final class BillingHandlers {
+    @FireflyHandler
+    void billing(ExecutionContext context) {
+        // run business code
+    }
+}
 
-client.start();
+RemoteExecutorAdapter.run(RemoteHandlerProvider.annotated(new BillingHandlers()));
 ```
+
+Handler 入口自动生成为 `包名.类名#方法名`，注解不允许手写名称。Remote Adapter 强制要求 Executor 定义已经存在，只注册当前运行实例和 Handler 能力。Job、Cron、路由、重试和启停状态仍由 Admin UI/API 管理。Python、Go 和第三方 HTTP 服务的语言无关 Agent 延后到后续版本。
 
 ## 独立 Server
 

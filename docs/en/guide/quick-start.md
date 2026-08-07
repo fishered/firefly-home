@@ -1,25 +1,45 @@
 ---
 title: Quick Start
-description: Start Firefly Server, Admin UI, and create jobs with Spring Boot annotations.
+description: Start Firefly and integrate a service with either Spring Boot Starter or the non-Spring Remote Adapter.
 ---
 
 # Quick Start
 
-Firefly is organized as a Java 21 and Gradle multi-module project. Start Firefly Server first, then add the starter to a Spring Boot business service and use `@FireflyJob` to register handlers and create jobs automatically.
+Firefly is organized as a Java 21 and Gradle multi-module project. Start Firefly Server first, then choose Spring Boot Starter or the non-Spring Java Remote Adapter for the business service.
 
 ## Requirements
 
 - JDK 21
-- Spring Boot 3.x business project
+- Spring Boot 3.x/4.x is optional; traditional Java services do not need Spring
 - Node.js 18 or later for Admin UI and this documentation site
 - PostgreSQL is optional for local development; H2 and memory profiles are available for quick checks
+
+## Manage Dependency Versions Once
+
+Maven projects should pin the Firefly BOM once in `dependencyManagement`. Dependencies for both Spring Starter and Remote Adapter can then omit individual versions:
+
+```xml
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>io.github.fishered</groupId>
+            <artifactId>firefly-bom</artifactId>
+            <version>1.0.5</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+```
+
+The BOM does not dynamically select the latest network release. It keeps builds reproducible while concentrating the Firefly version in one place, where Renovate or Dependabot can update it through a pull request. Projects that do not import the BOM may continue declaring a version on each dependency.
 
 ## Spring Boot Quick Integration
 
 Business services only need `firefly-spring-boot-starter`. Releases are published to Maven Central, so no Firefly-specific repository or separate Netty and auto-configuration dependencies are required.
 
-::: tip Firefly 1.0.2
-`1.0.2` is published by the tag-driven workflow. Before upgrading, confirm the artifact is indexed on [Maven Central](https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.2); remain on `1.0.1` until indexing completes.
+::: tip Firefly 1.0.5
+Before using `1.0.5`, confirm that the artifact is indexed on [Maven Central](https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.5). Merging the source PR does not mean that Maven Central publication has completed.
 :::
 
 Maven dependency:
@@ -28,7 +48,6 @@ Maven dependency:
 <dependency>
     <groupId>io.github.fishered</groupId>
     <artifactId>firefly-spring-boot-starter</artifactId>
-    <version>1.0.2</version>
 </dependency>
 ```
 
@@ -36,7 +55,8 @@ Gradle dependency:
 
 ```groovy
 dependencies {
-    implementation "io.github.fishered:firefly-spring-boot-starter:1.0.2"
+    implementation platform("io.github.fishered:firefly-bom:1.0.5")
+    implementation "io.github.fishered:firefly-spring-boot-starter"
 }
 ```
 
@@ -100,6 +120,80 @@ public void billingHandler(ExecutionContext context) {
     // run business code
 }
 ```
+
+## Non-Spring Java Quick Integration
+
+Traditional Servlet applications, Guice services, command-line workers, and other non-Spring Java services use `firefly-remote-adapter`. It provides Starter-like configuration, connection, reconnection, and lifecycle handling without creating Executors or jobs from application code.
+
+Maven dependency:
+
+```xml
+<dependency>
+    <groupId>io.github.fishered</groupId>
+    <artifactId>firefly-remote-adapter</artifactId>
+</dependency>
+```
+
+Gradle dependency:
+
+```groovy
+dependencies {
+    implementation platform("io.github.fishered:firefly-bom:1.0.5")
+    implementation "io.github.fishered:firefly-remote-adapter"
+}
+```
+
+Create a fixed Executor such as `billing-executor` in Admin UI first and select the `TCP` protocol. Then configure the business service:
+
+```text
+FIREFLY_EXECUTOR_NAME=billing-executor
+FIREFLY_EXECUTOR_GATEWAY_ADDRESSES=127.0.0.1:9700
+FIREFLY_EXECUTOR_INTEGRATION_KEY=replace-with-integration-key
+```
+
+Mark the fixed Handler capabilities on an explicitly supplied business object:
+
+```java
+import com.firefly.domain.ExecutionContext;
+import com.firefly.integration.remote.FireflyHandler;
+import com.firefly.integration.remote.RemoteExecutorAdapter;
+import com.firefly.integration.remote.RemoteHandlerProvider;
+
+final class BillingHandlers {
+    @FireflyHandler
+    void billing(ExecutionContext context) {
+        // run business code
+    }
+
+    @FireflyHandler
+    void reconcile() {
+        // run business code
+    }
+}
+
+public final class BillingApplication {
+    public static void main(String[] args) throws InterruptedException {
+        RemoteExecutorAdapter.run(
+                RemoteHandlerProvider.annotated(new BillingHandlers())
+        );
+    }
+}
+```
+
+`run(...)` reads `firefly.executor.*` / `FIREFLY_EXECUTOR_*` configuration, connects to Gateway, waits for `REGISTERED`, and shuts down gracefully with the JVM. An unknown Executor fails startup and is never auto-created by the Adapter.
+
+The Adapter derives stable entrypoints from the fully qualified business class and method names:
+
+```text
+com.example.BillingHandlers#billing
+com.example.BillingHandlers#reconcile
+```
+
+`@FireflyHandler` has no mutable `handlerName`, Cron, Job, or routing fields and does not trigger global classpath scanning. Annotated overloads in the same class fail before connecting because they produce a duplicate entrypoint. After the service is online and reports its Handler capabilities, create the Job in Admin UI and keep Cron, enablement, routing, and retry policies in the control plane.
+
+The low-level `.bind(name, handler)` API remains only for external dynamic names and compatibility cases; fixed business methods use automatic entrypoints.
+
+Python, Go, and other languages will use the same language-neutral Agent in a later release and are outside the v1.0.5 quick-start scope.
 
 ## Start Firefly Server
 
