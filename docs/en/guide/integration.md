@@ -36,25 +36,12 @@ Spring Boot applications only need one Starter. It auto-configures the Netty cli
 Version `1.0.5` is distributed through [Maven Central](https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.5), with no additional repository required. Confirm that Central indexing has completed before using it.
 
 ```xml
-<dependencyManagement>
-    <dependencies>
-        <dependency>
-            <groupId>io.github.fishered</groupId>
-            <artifactId>firefly-bom</artifactId>
-            <version>1.0.5</version>
-            <type>pom</type>
-            <scope>import</scope>
-        </dependency>
-    </dependencies>
-</dependencyManagement>
-
 <dependency>
     <groupId>io.github.fishered</groupId>
     <artifactId>firefly-spring-boot-starter</artifactId>
+    <version>1.0.5</version>
 </dependency>
 ```
-
-The version is pinned once in the BOM; other Firefly dependencies in the same project may also omit individual versions.
 
 The business service runs as a remote Executor and connects to Gateway. Generate an Integration Key in Admin UI for Executor registration and declarative job synchronization.
 
@@ -96,6 +83,7 @@ Traditional Java, Servlet, Guice, and command-line workers use `firefly-remote-a
 <dependency>
     <groupId>io.github.fishered</groupId>
     <artifactId>firefly-remote-adapter</artifactId>
+    <version>1.0.5</version>
 </dependency>
 ```
 
