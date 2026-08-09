@@ -35,6 +35,34 @@ import { withBase } from 'vitepress';
 </section>
 
 <section class="ff-section">
+  <p class="ff-kicker">v1.0.6 runtime hardening</p>
+  <h2>更稳的调度恢复，更清晰的单节点资源边界</h2>
+  <p class="ff-section-lead">
+    v1.0.6 为调度索引失败恢复、本地 Worker 背压、分片批量续租和 HTTP 线程池补齐明确边界，同时降低单节点 revision、Drain 与 Metrics 查询成本。
+  </p>
+  <div class="ff-grid">
+    <div class="ff-card accent-coral">
+      <span class="ff-tag">recovery</span>
+      <h3>失败后自动重载</h3>
+      <p>任务推进或 Outbox 写入失败后，下一次 tick 强制重载 TimingIndex，不等待配置变化或节点重启。</p>
+    </div>
+    <div class="ff-card accent-lime">
+      <span class="ff-tag">backpressure</span>
+      <h3>本地执行有界</h3>
+      <p>虚拟线程增加最大并发 admission，FORBID 使用原子抢占，饱和任务通过既有 Outbox 重试链路回压。</p>
+    </div>
+    <div class="ff-card accent-cyan">
+      <span class="ff-tag">coordination</span>
+      <h3>续租与观测降载</h3>
+      <p>分片 lease 批量续租，revision 独立降频，Prometheus 复用统计快照，HTTP 服务使用有界线程池。</p>
+    </div>
+  </div>
+  <div class="ff-actions">
+    <a class="ff-button primary" :href="withBase('/releases/v1.0.6')">查看 v1.0.6 Release Note</a>
+  </div>
+</section>
+
+<section class="ff-section">
   <h2>为调度中心而生，也适合嵌入式集成</h2>
   <p class="ff-section-lead">
     Firefly 可以作为业务进程内的轻量调度器，也可以作为独立调度中心运行。核心模块不绑定 Spring、HTTP、数据库或特定通信协议，外部能力通过 integration、transport、store 和 plugin 自然扩展。
