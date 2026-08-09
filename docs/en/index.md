@@ -35,6 +35,34 @@ import { withBase } from 'vitepress';
 </section>
 
 <section class="ff-section">
+  <p class="ff-kicker">v1.0.6 runtime hardening</p>
+  <h2>Reliable scheduler recovery with explicit single-node limits</h2>
+  <p class="ff-section-lead">
+    v1.0.6 adds timing-index recovery, local worker backpressure, batched shard renewal, bounded HTTP executors, and lower revision, drain, and metrics query costs.
+  </p>
+  <div class="ff-grid">
+    <div class="ff-card accent-coral">
+      <span class="ff-tag">recovery</span>
+      <h3>Reload after failures</h3>
+      <p>A failed cursor advance or Outbox write invalidates the TimingIndex so the next tick reloads durable state.</p>
+    </div>
+    <div class="ff-card accent-lime">
+      <span class="ff-tag">backpressure</span>
+      <h3>Bounded local execution</h3>
+      <p>Virtual threads use explicit admission, FORBID claims atomically, and saturated work returns to the existing Outbox retry path.</p>
+    </div>
+    <div class="ff-card accent-cyan">
+      <span class="ff-tag">coordination</span>
+      <h3>Lower coordination cost</h3>
+      <p>Shard leases renew in batches, revision checks run independently, metrics reuse snapshots, and HTTP pools are bounded.</p>
+    </div>
+  </div>
+  <div class="ff-actions">
+    <a class="ff-button primary" :href="withBase('/en/releases/v1.0.6')">Read the v1.0.6 Release Notes</a>
+  </div>
+</section>
+
+<section class="ff-section">
   <h2>Built for a scheduler center, light enough to embed</h2>
   <p class="ff-section-lead">
     Firefly can run inside a business process or as a standalone scheduling center. The core does not bind to Spring, HTTP, databases, or a specific transport; those capabilities evolve in integration, transport, store, and plugin modules.
