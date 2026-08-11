@@ -24,7 +24,7 @@ Maven 项目推荐只在 `dependencyManagement` 中固定一次 Firefly BOM 版�
         <dependency>
             <groupId>io.github.fishered</groupId>
             <artifactId>firefly-bom</artifactId>
-            <version>1.0.5</version>
+            <version>1.0.6</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -38,8 +38,8 @@ BOM 不会自动选择“网络上的最新版”，而是把需要维护的 Fir
 
 业务项目只需要引入 `firefly-spring-boot-starter`。正式版本发布在 Maven Central，不需要添加 Firefly 私有仓库，也不需要分别声明 Netty 客户端或自动配置模块。
 
-::: tip Firefly 1.0.5
-使用 `1.0.5` 前，请在 [Maven Central](https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.5) 确认构件已经完成索引。源码 PR 合并不代表 Maven Central 已经发布完成。
+::: tip Firefly 1.0.6
+`1.0.6` 已通过 tag 驱动的发布流程上传到 [Maven Central](https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.6)。
 :::
 
 Maven 依赖：
@@ -55,7 +55,7 @@ Gradle 依赖：
 
 ```groovy
 dependencies {
-    implementation platform("io.github.fishered:firefly-bom:1.0.5")
+    implementation platform("io.github.fishered:firefly-bom:1.0.6")
     implementation "io.github.fishered:firefly-spring-boot-starter"
 }
 ```
@@ -138,7 +138,7 @@ Gradle 依赖：
 
 ```groovy
 dependencies {
-    implementation platform("io.github.fishered:firefly-bom:1.0.5")
+    implementation platform("io.github.fishered:firefly-bom:1.0.6")
     implementation "io.github.fishered:firefly-remote-adapter"
 }
 ```
@@ -193,7 +193,7 @@ com.example.BillingHandlers#reconcile
 
 低层 `.bind(name, handler)` 只保留给外部动态名称和兼容场景；固定业务方法使用自动入口。
 
-Python、Go 和其他语言后续将通过同一个语言无关 Agent 接入，不属于 v1.0.5 的快速集成范围。
+Python、Go 和其他语言后续将通过同一个语言无关 Agent 接入，不属于 v1.0.6 的快速集成范围。
 
 ## 启动 Firefly Server
 

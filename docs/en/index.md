@@ -22,7 +22,7 @@ import { withBase } from 'vitepress';
     <div class="ff-actions">
       <a class="ff-button primary" :href="withBase('/en/guide/quick-start')">Quick Start</a>
       <a class="ff-button secondary" :href="withBase('/en/features/')">Technical Components</a>
-      <a class="ff-button secondary" href="https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.2">Maven Central</a>
+      <a class="ff-button secondary" href="https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.6">Maven Central</a>
       <a class="ff-button ghost" href="https://github.com/fishered/Firefly">GitHub</a>
     </div>
   </div>
