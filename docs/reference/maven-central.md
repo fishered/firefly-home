@@ -1,13 +1,13 @@
 ---
 title: Maven Central
-description: Firefly 1.0.2 的 Maven Central 坐标、模块依赖链和版本策略。
+description: Firefly 1.0.6 的 Maven Central 坐标、模块依赖链和版本策略。
 ---
 
 # Maven Central
 
 Firefly 使用 `io.github.fishered` 命名空间发布到 Maven Central。Spring Boot 业务项目只需要引入一个 Starter，无需添加私有仓库或单独声明 Firefly 的内部模块。
 
-[在 Maven Central 查看 firefly-spring-boot-starter 1.0.2](https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.2)
+[在 Maven Central 查看 firefly-spring-boot-starter 1.0.6](https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.6)
 
 ::: info 索引延迟
 新版本从 Central Portal 发布后，搜索页和各地区镜像可能需要一段时间完成同步。同步期间 Maven 坐标不会变化。
@@ -19,7 +19,7 @@ Firefly 使用 `io.github.fishered` 命名空间发布到 Maven Central。Spring
 <dependency>
     <groupId>io.github.fishered</groupId>
     <artifactId>firefly-spring-boot-starter</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.6</version>
 </dependency>
 ```
 
@@ -33,7 +33,7 @@ repositories {
 }
 
 dependencies {
-    implementation "io.github.fishered:firefly-spring-boot-starter:1.0.2"
+    implementation "io.github.fishered:firefly-spring-boot-starter:1.0.6"
 }
 ```
 
@@ -43,11 +43,13 @@ Starter 会沿 POM 依赖自动解析所需模块：
 
 | 构件 | 职责 |
 | --- | --- |
+| `firefly-bom` | 统一管理全部 Firefly 公共构件版本 |
 | `scheduler-core` | 调度领域模型、路由和存储契约 |
 | `plugin-api` | 外部插件扩展 API |
 | `netty-protocol` | Gateway 与 Executor 共用的 JSON wire model 和编解码 |
 | `netty` | Gateway 与 Executor 共用的协议和传输实现 |
 | `executor-netty` | 业务服务使用的 Netty Executor 客户端 |
+| `firefly-remote-adapter` | 非 Spring Java 服务使用的独立 Executor 集成入口 |
 | `firefly-spring-boot-autoconfigure` | Executor、任务注解和 Spring 生命周期自动配置 |
 | `firefly-spring-boot-starter` | Spring Boot 项目的唯一集成入口 |
 

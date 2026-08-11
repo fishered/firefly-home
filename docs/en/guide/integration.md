@@ -33,7 +33,7 @@ try (FireflyScheduler scheduler = FireflyScheduler.create()) {
 
 Spring Boot applications only need one Starter. It auto-configures the Netty client, handler discovery, job synchronization, heartbeats, reconnection, and Spring lifecycle integration.
 
-Version `1.0.5` is distributed through [Maven Central](https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.5), with no additional repository required. Confirm that Central indexing has completed before using it.
+Version `1.0.6` is available from [Maven Central](https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.6), with no additional repository required.
 
 ```xml
 <dependencyManagement>
@@ -41,7 +41,7 @@ Version `1.0.5` is distributed through [Maven Central](https://central.sonatype.
         <dependency>
             <groupId>io.github.fishered</groupId>
             <artifactId>firefly-bom</artifactId>
-            <version>1.0.5</version>
+            <version>1.0.6</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>

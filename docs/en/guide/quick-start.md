@@ -24,7 +24,7 @@ Maven projects should pin the Firefly BOM once in `dependencyManagement`. Depend
         <dependency>
             <groupId>io.github.fishered</groupId>
             <artifactId>firefly-bom</artifactId>
-            <version>1.0.5</version>
+            <version>1.0.6</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -38,8 +38,8 @@ The BOM does not dynamically select the latest network release. It keeps builds 
 
 Business services only need `firefly-spring-boot-starter`. Releases are published to Maven Central, so no Firefly-specific repository or separate Netty and auto-configuration dependencies are required.
 
-::: tip Firefly 1.0.5
-Before using `1.0.5`, confirm that the artifact is indexed on [Maven Central](https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.5). Merging the source PR does not mean that Maven Central publication has completed.
+::: tip Firefly 1.0.6
+`1.0.6` has been uploaded to [Maven Central](https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.6) through the tag-driven release workflow.
 :::
 
 Maven dependency:
@@ -55,7 +55,7 @@ Gradle dependency:
 
 ```groovy
 dependencies {
-    implementation platform("io.github.fishered:firefly-bom:1.0.5")
+    implementation platform("io.github.fishered:firefly-bom:1.0.6")
     implementation "io.github.fishered:firefly-spring-boot-starter"
 }
 ```
@@ -138,7 +138,7 @@ Gradle dependency:
 
 ```groovy
 dependencies {
-    implementation platform("io.github.fishered:firefly-bom:1.0.5")
+    implementation platform("io.github.fishered:firefly-bom:1.0.6")
     implementation "io.github.fishered:firefly-remote-adapter"
 }
 ```
@@ -193,7 +193,7 @@ com.example.BillingHandlers#reconcile
 
 The low-level `.bind(name, handler)` API remains only for external dynamic names and compatibility cases; fixed business methods use automatic entrypoints.
 
-Python, Go, and other languages will use the same language-neutral Agent in a later release and are outside the v1.0.5 quick-start scope.
+Python, Go, and other languages will use the same language-neutral Agent in a later release and are outside the v1.0.6 quick-start scope.
 
 ## Start Firefly Server
 
