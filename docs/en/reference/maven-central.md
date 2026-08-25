@@ -1,13 +1,13 @@
 ---
 title: Maven Central
-description: Maven Central coordinates, module dependency chain, and version policy for Firefly 1.0.2.
+description: Maven Central coordinates, module dependency chain, and version policy for Firefly 1.0.8.
 ---
 
 # Maven Central
 
 Firefly is published to Maven Central under the `io.github.fishered` namespace. Spring Boot applications only need the Starter and do not need a private repository or separate Firefly module declarations.
 
-[Browse firefly-spring-boot-starter 1.0.2 on Maven Central](https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.2)
+[Browse firefly-spring-boot-starter 1.0.8 on Maven Central](https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.8)
 
 ::: info Indexing delay
 Search results and regional mirrors can take some time to synchronize after a Central Portal release. The Maven coordinates remain unchanged during this period.
@@ -19,7 +19,7 @@ Search results and regional mirrors can take some time to synchronize after a Ce
 <dependency>
     <groupId>io.github.fishered</groupId>
     <artifactId>firefly-spring-boot-starter</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.8</version>
 </dependency>
 ```
 
@@ -33,7 +33,7 @@ repositories {
 }
 
 dependencies {
-    implementation "io.github.fishered:firefly-spring-boot-starter:1.0.2"
+    implementation "io.github.fishered:firefly-spring-boot-starter:1.0.8"
 }
 ```
 
@@ -43,11 +43,13 @@ The Starter resolves its required modules through the published POM dependency c
 
 | Artifact | Responsibility |
 | --- | --- |
+| `firefly-bom` | Centralized version management for all public Firefly artifacts |
 | `scheduler-core` | Scheduling domain model, routing, and storage contracts |
 | `plugin-api` | Extension API for external plugins |
 | `netty-protocol` | JSON wire models and codecs shared by Gateway and Executor |
 | `netty` | Protocol and transport shared by Gateway and Executor |
 | `executor-netty` | Netty Executor client used by business services |
+| `firefly-remote-adapter` | Standalone Executor integration for non-Spring Java services |
 | `firefly-spring-boot-autoconfigure` | Executor, job annotation, and Spring lifecycle auto-configuration |
 | `firefly-spring-boot-starter` | Single integration entry point for Spring Boot applications |
 
