@@ -9,6 +9,7 @@ This page summarizes published Firefly versions. Each version records only the s
 
 | Version | Release date | Scope |
 |---|---|---|
+| [v1.0.8](./v1.0.8.md) | August 25, 2026 | Release consistency and verification: aligned Docker/Compose versions, CI compatibility checks, trace version identity, and bounded carriers |
 | [v1.0.6](./v1.0.6.md) | August 9, 2026 | Runtime stability and resource boundaries: timing-index recovery, local worker backpressure, atomic `FORBID`, batched lease renewal, revision throttling, and bounded HTTP executors |
 | [v1.0.5](./v1.0.5.md) | Not released separately | Non-Spring Java integration candidate; the work was formally delivered in v1.0.6 |
 | [v1.0.4](./v1.0.4.md) | August 4, 2026 | Scheduler reliability verification: same-due-time PostgreSQL stress tests, concurrent Scheduler/Outbox contention checks, resource observations, and a repeatable stress-test entry point |

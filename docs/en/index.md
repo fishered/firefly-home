@@ -22,7 +22,7 @@ import { withBase } from 'vitepress';
     <div class="ff-actions">
       <a class="ff-button primary" :href="withBase('/en/guide/quick-start')">Quick Start</a>
       <a class="ff-button secondary" :href="withBase('/en/features/')">Technical Components</a>
-      <a class="ff-button secondary" href="https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.6">Maven Central</a>
+      <a class="ff-button secondary" href="https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.8">Maven Central</a>
       <a class="ff-button ghost" href="https://github.com/fishered/Firefly">GitHub</a>
     </div>
   </div>
@@ -35,30 +35,30 @@ import { withBase } from 'vitepress';
 </section>
 
 <section class="ff-section">
-  <p class="ff-kicker">v1.0.6 runtime hardening</p>
+  <p class="ff-kicker">v1.0.8 release consistency</p>
   <h2>Reliable scheduler recovery with explicit single-node limits</h2>
   <p class="ff-section-lead">
-    v1.0.6 adds timing-index recovery, local worker backpressure, batched shard renewal, bounded HTTP executors, and lower revision, drain, and metrics query costs.
+    v1.0.8 aligns release defaults, compatibility checks, and publishing validation, while making production trace identity and context boundaries explicit.
   </p>
   <div class="ff-grid">
     <div class="ff-card accent-coral">
       <span class="ff-tag">recovery</span>
-      <h3>Reload after failures</h3>
-      <p>A failed cursor advance or Outbox write invalidates the TimingIndex so the next tick reloads durable state.</p>
+      <h3>Consistent release defaults</h3>
+      <p>Gradle, Docker, Compose, environment examples, and deployment docs all point to v1.0.8.</p>
     </div>
     <div class="ff-card accent-lime">
       <span class="ff-tag">backpressure</span>
-      <h3>Bounded local execution</h3>
-      <p>Virtual threads use explicit admission, FORBID claims atomically, and saturated work returns to the existing Outbox retry path.</p>
+      <h3>Executable compatibility</h3>
+      <p>CI and publishing run check and matrix validation, including a comparison between plugin declarations and the JSON contract.</p>
     </div>
     <div class="ff-card accent-cyan">
       <span class="ff-tag">coordination</span>
-      <h3>Lower coordination cost</h3>
-      <p>Shard leases renew in batches, revision checks run independently, metrics reuse snapshots, and HTTP pools are bounded.</p>
+      <h3>Clear trace boundaries</h3>
+      <p>Trace resources use the host build version, while carriers keep only bounded W3C fields.</p>
     </div>
   </div>
   <div class="ff-actions">
-    <a class="ff-button primary" :href="withBase('/en/releases/v1.0.6')">Read the v1.0.6 Release Notes</a>
+    <a class="ff-button primary" :href="withBase('/en/releases/v1.0.8')">Read the v1.0.8 Release Notes</a>
   </div>
 </section>
 
