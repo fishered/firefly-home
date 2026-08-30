@@ -22,7 +22,7 @@ import { withBase } from 'vitepress';
     <div class="ff-actions">
       <a class="ff-button primary" :href="withBase('/en/guide/quick-start')">Quick Start</a>
       <a class="ff-button secondary" :href="withBase('/en/features/')">Technical Components</a>
-      <a class="ff-button secondary" href="https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.8">Maven Central</a>
+      <a class="ff-button secondary" href="https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.1.1">Maven Central</a>
       <a class="ff-button ghost" href="https://github.com/fishered/Firefly">GitHub</a>
     </div>
   </div>
@@ -35,30 +35,30 @@ import { withBase } from 'vitepress';
 </section>
 
 <section class="ff-section">
-  <p class="ff-kicker">v1.0.8 release consistency</p>
-  <h2>Reliable scheduler recovery with explicit single-node limits</h2>
+  <p class="ff-kicker">v1.1.1 scheduling semantics and calendar foundation</p>
+  <h2>Business calendars, reliable triggers, and an evolvable batch foundation</h2>
   <p class="ff-section-lead">
-    v1.0.8 aligns release defaults, compatibility checks, and publishing validation, while making production trace identity and context boundaries explicit.
+    v1.1.1 delivers the foundations for business calendars and holiday providers, dependency and event triggers, and batch-result persistence while preserving reliable delivery boundaries.
   </p>
   <div class="ff-grid">
     <div class="ff-card accent-coral">
       <span class="ff-tag">recovery</span>
-      <h3>Consistent release defaults</h3>
-      <p>Gradle, Docker, Compose, environment examples, and deployment docs all point to v1.0.8.</p>
+      <h3>Intuitive calendar selection</h3>
+      <p>The Admin UI supports multi-month views, multi-select, drag/range selection, and bulk application of day types.</p>
     </div>
     <div class="ff-card accent-lime">
       <span class="ff-tag">backpressure</span>
-      <h3>Executable compatibility</h3>
-      <p>CI and publishing run check and matrix validation, including a comparison between plugin declarations and the JSON contract.</p>
+      <h3>Persisted scheduling semantics</h3>
+      <p>Calendar, blackout, dependency, and trigger-inbox models are wired to additive JDBC v13/v14 migrations.</p>
     </div>
     <div class="ff-card accent-cyan">
       <span class="ff-tag">coordination</span>
-      <h3>Clear trace boundaries</h3>
-      <p>Trace resources use the host build version, while carriers keep only bounded W3C fields.</p>
+      <h3>Observable batch results</h3>
+      <p>Netty results are written asynchronously with idempotency, fencing, rate-limited progress updates, and Prometheus metrics.</p>
     </div>
   </div>
   <div class="ff-actions">
-    <a class="ff-button primary" :href="withBase('/en/releases/v1.0.8')">Read the v1.0.8 Release Notes</a>
+    <a class="ff-button primary" :href="withBase('/en/releases/v1.1.1')">Read the v1.1.1 Release Notes</a>
   </div>
 </section>
 
