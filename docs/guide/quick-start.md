@@ -24,7 +24,7 @@ Maven 项目推荐只在 `dependencyManagement` 中固定一次 Firefly BOM 版�
         <dependency>
             <groupId>io.github.fishered</groupId>
             <artifactId>firefly-bom</artifactId>
-            <version>1.0.8</version>
+            <version>1.1.1</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -38,8 +38,8 @@ BOM 不会自动选择“网络上的最新版”，而是把需要维护的 Fir
 
 业务项目只需要引入 `firefly-spring-boot-starter`。正式版本发布在 Maven Central，不需要添加 Firefly 私有仓库，也不需要分别声明 Netty 客户端或自动配置模块。
 
-::: tip Firefly 1.0.8
-`1.0.8` 已通过 tag 驱动的发布流程上传到 [Maven Central](https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.8)。
+::: tip Firefly 1.1.1
+`1.1.1` 已通过 tag 驱动的发布流程上传到 [Maven Central](https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.1.1)。
 :::
 
 Maven 依赖：
@@ -55,7 +55,7 @@ Gradle 依赖：
 
 ```groovy
 dependencies {
-    implementation platform("io.github.fishered:firefly-bom:1.0.8")
+    implementation platform("io.github.fishered:firefly-bom:1.1.1")
     implementation "io.github.fishered:firefly-spring-boot-starter"
 }
 ```

@@ -22,7 +22,7 @@ import { withBase } from 'vitepress';
     <div class="ff-actions">
       <a class="ff-button primary" :href="withBase('/guide/quick-start')">快速开始</a>
       <a class="ff-button secondary" :href="withBase('/features/')">查看技术组件</a>
-      <a class="ff-button secondary" href="https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.8">Maven Central</a>
+      <a class="ff-button secondary" href="https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.1.1">Maven Central</a>
       <a class="ff-button ghost" href="https://github.com/fishered/Firefly">GitHub</a>
     </div>
   </div>
@@ -35,30 +35,30 @@ import { withBase } from 'vitepress';
 </section>
 
 <section class="ff-section">
-  <p class="ff-kicker">v1.0.8 release consistency</p>
-  <h2>更稳的调度恢复，更清晰的单节点资源边界</h2>
+  <p class="ff-kicker">v1.1.1 scheduling semantics and calendar foundation</p>
+  <h2>业务日历、可靠触发与可演进的批处理基础</h2>
   <p class="ff-section-lead">
-    v1.0.8 将发布默认值、兼容矩阵和验证流程统一起来，并补齐生产 Trace 的版本标识与上下文边界。
+    v1.1.1 在保留可靠投递和兼容性边界的基础上，交付业务日历与节假日 Provider SPI、依赖和事件触发基础，以及批处理结果接线。
   </p>
   <div class="ff-grid">
     <div class="ff-card accent-coral">
       <span class="ff-tag">recovery</span>
-      <h3>版本默认值一致</h3>
-      <p>Gradle、Docker、Compose、环境示例和部署文档统一指向 v1.0.8，避免复制配置后拉取旧镜像。</p>
+      <h3>日历选择更直观</h3>
+      <p>Admin UI 支持多月查看、多选、拖拽/范围选择和批量应用工作日、节假日规则。</p>
     </div>
     <div class="ff-card accent-lime">
       <span class="ff-tag">backpressure</span>
-      <h3>兼容矩阵可执行</h3>
-      <p>CI 和发布 Action 执行 check 与矩阵校验，并比较插件声明和 JSON 契约，减少发布漂移。</p>
+      <h3>调度语义可持久化</h3>
+      <p>日历、黑名单、依赖和事件 Inbox 的核心模型与 JDBC v13/v14 增量表已接入，便于生产环境逐步启用。</p>
     </div>
     <div class="ff-card accent-cyan">
       <span class="ff-tag">coordination</span>
-      <h3>Trace 边界清晰</h3>
-      <p>Trace 使用宿主构建版本，carrier 只保留 W3C 字段并限制大小，避免敏感信息和数据库膨胀。</p>
+      <h3>批处理结果可观测</h3>
+      <p>Netty 结果异步写入批处理仓储，支持幂等、fencing、限频进度和 Prometheus 指标。</p>
     </div>
   </div>
   <div class="ff-actions">
-    <a class="ff-button primary" :href="withBase('/releases/v1.0.8')">查看 v1.0.8 Release Note</a>
+    <a class="ff-button primary" :href="withBase('/releases/v1.1.1')">查看 v1.1.1 Release Note</a>
   </div>
 </section>
 

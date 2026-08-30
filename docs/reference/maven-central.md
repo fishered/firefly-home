@@ -1,13 +1,13 @@
 ---
 title: Maven Central
-description: Firefly 1.0.8 的 Maven Central 坐标、模块依赖链和版本策略。
+description: Firefly 1.1.1 的 Maven Central 坐标、模块依赖链和版本策略。
 ---
 
 # Maven Central
 
 Firefly 使用 `io.github.fishered` 命名空间发布到 Maven Central。Spring Boot 业务项目只需要引入一个 Starter，无需添加私有仓库或单独声明 Firefly 的内部模块。
 
-[在 Maven Central 查看 firefly-spring-boot-starter 1.0.8](https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.0.8)
+[在 Maven Central 查看 firefly-spring-boot-starter 1.1.1](https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.1.1)
 
 ::: info 索引延迟
 新版本从 Central Portal 发布后，搜索页和各地区镜像可能需要一段时间完成同步。同步期间 Maven 坐标不会变化。
@@ -19,7 +19,7 @@ Firefly 使用 `io.github.fishered` 命名空间发布到 Maven Central。Spring
 <dependency>
     <groupId>io.github.fishered</groupId>
     <artifactId>firefly-spring-boot-starter</artifactId>
-    <version>1.0.8</version>
+    <version>1.1.1</version>
 </dependency>
 ```
 
@@ -33,7 +33,7 @@ repositories {
 }
 
 dependencies {
-    implementation "io.github.fishered:firefly-spring-boot-starter:1.0.8"
+    implementation "io.github.fishered:firefly-spring-boot-starter:1.1.1"
 }
 ```
 
