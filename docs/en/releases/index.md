@@ -7,7 +7,7 @@ description: Release dates, change scope, and upgrade entry points for every Fir
 
 This page summarizes published Firefly versions. Each version records only the scope handled by that release; installation and environment setup remain in the deployment guide.
 
-| Version | Release date | Scope |
+| Version | Release date | Features in this version |
 |---|---|---|
 | [v1.1.2](./v1.1.2.md) | September 1, 2026 | Modular project structure, batch partitioning foundations, dependency condition gates, and production deployment version consistency |
 | [v1.1.1](./v1.1.1.md) | August 30, 2026 | Scheduling semantics and business-calendar foundations, idempotent triggers and batch-result wiring, multi-select calendar UI, and JDBC v13/v14 migrations |
