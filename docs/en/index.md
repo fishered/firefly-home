@@ -22,7 +22,7 @@ import { withBase } from 'vitepress';
     <div class="ff-actions">
       <a class="ff-button primary" :href="withBase('/en/guide/quick-start')">Quick Start</a>
       <a class="ff-button secondary" :href="withBase('/en/features/')">Technical Components</a>
-      <a class="ff-button secondary" href="https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.1.1">Maven Central</a>
+      <a class="ff-button secondary" href="https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.1.2">Maven Central</a>
       <a class="ff-button ghost" href="https://github.com/fishered/Firefly">GitHub</a>
     </div>
   </div>
@@ -35,10 +35,10 @@ import { withBase } from 'vitepress';
 </section>
 
 <section class="ff-section">
-  <p class="ff-kicker">v1.1.1 scheduling semantics and calendar foundation</p>
+  <p class="ff-kicker">v1.1.2 modular architecture and production foundation</p>
   <h2>Business calendars, reliable triggers, and an evolvable batch foundation</h2>
   <p class="ff-section-lead">
-    v1.1.1 delivers the foundations for business calendars and holiday providers, dependency and event triggers, and batch-result persistence while preserving reliable delivery boundaries.
+    v1.1.2 delivers a clear modular project structure, batch partitioning foundations, dependency condition gates, and production deployment consistency while preserving the v1.1.1 scheduling capabilities.
   </p>
   <div class="ff-grid">
     <div class="ff-card accent-coral">
@@ -58,7 +58,7 @@ import { withBase } from 'vitepress';
     </div>
   </div>
   <div class="ff-actions">
-    <a class="ff-button primary" :href="withBase('/en/releases/v1.1.1')">Read the v1.1.1 Release Notes</a>
+    <a class="ff-button primary" :href="withBase('/en/releases/v1.1.2')">Read the v1.1.2 Release Notes</a>
   </div>
 </section>
 

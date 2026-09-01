@@ -22,7 +22,7 @@ import { withBase } from 'vitepress';
     <div class="ff-actions">
       <a class="ff-button primary" :href="withBase('/guide/quick-start')">快速开始</a>
       <a class="ff-button secondary" :href="withBase('/features/')">查看技术组件</a>
-      <a class="ff-button secondary" href="https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.1.1">Maven Central</a>
+      <a class="ff-button secondary" href="https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.1.2">Maven Central</a>
       <a class="ff-button ghost" href="https://github.com/fishered/Firefly">GitHub</a>
     </div>
   </div>
@@ -35,10 +35,10 @@ import { withBase } from 'vitepress';
 </section>
 
 <section class="ff-section">
-  <p class="ff-kicker">v1.1.1 scheduling semantics and calendar foundation</p>
+  <p class="ff-kicker">v1.1.2 modular architecture and production foundation</p>
   <h2>业务日历、可靠触发与可演进的批处理基础</h2>
   <p class="ff-section-lead">
-    v1.1.1 在保留可靠投递和兼容性边界的基础上，交付业务日历与节假日 Provider SPI、依赖和事件触发基础，以及批处理结果接线。
+    v1.1.2 在保留 v1.1.1 调度能力的基础上，交付清晰的多模块工程边界、批处理切分基础和生产部署一致性。
   </p>
   <div class="ff-grid">
     <div class="ff-card accent-coral">
@@ -58,7 +58,7 @@ import { withBase } from 'vitepress';
     </div>
   </div>
   <div class="ff-actions">
-    <a class="ff-button primary" :href="withBase('/releases/v1.1.1')">查看 v1.1.1 Release Note</a>
+    <a class="ff-button primary" :href="withBase('/releases/v1.1.2')">查看 v1.1.2 Release Note</a>
   </div>
 </section>
 

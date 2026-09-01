@@ -9,6 +9,7 @@ This page summarizes published Firefly versions. Each version records only the s
 
 | Version | Release date | Scope |
 |---|---|---|
+| [v1.1.2](./v1.1.2.md) | September 1, 2026 | Modular project structure, batch partitioning foundations, dependency condition gates, and production deployment version consistency |
 | [v1.1.1](./v1.1.1.md) | August 30, 2026 | Scheduling semantics and business-calendar foundations, idempotent triggers and batch-result wiring, multi-select calendar UI, and JDBC v13/v14 migrations |
 | [v1.0.8](./v1.0.8.md) | August 25, 2026 | Release consistency and verification: aligned Docker/Compose versions, CI compatibility checks, trace version identity, and bounded carriers |
 | [v1.0.6](./v1.0.6.md) | August 9, 2026 | Runtime stability and resource boundaries: timing-index recovery, local worker backpressure, atomic `FORBID`, batched lease renewal, revision throttling, and bounded HTTP executors |
