@@ -22,7 +22,7 @@ import { withBase } from 'vitepress';
     <div class="ff-actions">
       <a class="ff-button primary" :href="withBase('/guide/quick-start')">快速开始</a>
       <a class="ff-button secondary" :href="withBase('/features/')">查看技术组件</a>
-      <a class="ff-button secondary" href="https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.1.2">Maven Central</a>
+      <a class="ff-button secondary" href="https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.1.3">Maven Central</a>
       <a class="ff-button ghost" href="https://github.com/fishered/Firefly">GitHub</a>
     </div>
   </div>
@@ -35,30 +35,30 @@ import { withBase } from 'vitepress';
 </section>
 
 <section class="ff-section">
-  <p class="ff-kicker">v1.1.2 modular architecture and production foundation</p>
-  <h2>业务日历、可靠触发与可演进的批处理基础</h2>
+  <p class="ff-kicker">v1.1.3 business time and recoverable execution</p>
+  <h2>让业务时间、数据就绪和故障恢复成为调度语义</h2>
   <p class="ff-section-lead">
-    v1.1.2 在保留 v1.1.1 调度能力的基础上，交付清晰的多模块工程边界、批处理切分基础和生产部署一致性。
+    v1.1.3 在既有可靠投递和业务日历基础上，增加数据就绪条件、事件洪峰合并、可恢复补数、执行重放、资源感知调度和 SLA 预算模型。
   </p>
   <div class="ff-grid">
     <div class="ff-card accent-coral">
-      <span class="ff-tag">recovery</span>
-      <h3>日历选择更直观</h3>
-      <p>Admin UI 支持多月查看、多选、拖拽/范围选择和批量应用工作日、节假日规则。</p>
+      <span class="ff-tag">readiness</span>
+      <h3>等数据准备好再执行</h3>
+      <p>可通过条件 SPI 接入上游任务、批次、水位、对象文件或外部系统状态，未知条件默认阻断。</p>
     </div>
     <div class="ff-card accent-lime">
-      <span class="ff-tag">backpressure</span>
-      <h3>调度语义可持久化</h3>
-      <p>日历、黑名单、依赖和事件 Inbox 的核心模型与 JDBC v13/v14 增量表已接入，便于生产环境逐步启用。</p>
+      <span class="ff-tag">coalescing</span>
+      <h3>事件洪峰不放大执行</h3>
+      <p>按业务聚合键防抖事件，保留最新 payload 和事件数量，再通过普通 Outbox 生成一次执行。</p>
     </div>
     <div class="ff-card accent-cyan">
-      <span class="ff-tag">coordination</span>
-      <h3>批处理结果可观测</h3>
-      <p>Netty 结果异步写入批处理仓储，支持幂等、fencing、限频进度和 Prometheus 指标。</p>
+      <span class="ff-tag">recovery</span>
+      <h3>补数和重放可控恢复</h3>
+      <p>先预览，再按批次、金丝雀、限速和断点运行；重放前可检查任务、日历、依赖和参数差异。</p>
     </div>
   </div>
   <div class="ff-actions">
-    <a class="ff-button primary" :href="withBase('/releases/v1.1.2')">查看 v1.1.2 Release Note</a>
+    <a class="ff-button primary" :href="withBase('/releases/v1.1.3')">查看 v1.1.3 Release Note</a>
   </div>
 </section>
 

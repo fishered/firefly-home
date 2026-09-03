@@ -22,7 +22,7 @@ import { withBase } from 'vitepress';
     <div class="ff-actions">
       <a class="ff-button primary" :href="withBase('/en/guide/quick-start')">Quick Start</a>
       <a class="ff-button secondary" :href="withBase('/en/features/')">Technical Components</a>
-      <a class="ff-button secondary" href="https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.1.2">Maven Central</a>
+      <a class="ff-button secondary" href="https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.1.3">Maven Central</a>
       <a class="ff-button ghost" href="https://github.com/fishered/Firefly">GitHub</a>
     </div>
   </div>
@@ -35,30 +35,30 @@ import { withBase } from 'vitepress';
 </section>
 
 <section class="ff-section">
-  <p class="ff-kicker">v1.1.2 modular architecture and production foundation</p>
-  <h2>Business calendars, reliable triggers, and an evolvable batch foundation</h2>
+  <p class="ff-kicker">v1.1.3 business time and recoverable execution</p>
+  <h2>Make business time, readiness, and recovery part of scheduling semantics</h2>
   <p class="ff-section-lead">
-    v1.1.2 delivers a clear modular project structure, batch partitioning foundations, dependency condition gates, and production deployment consistency while preserving the v1.1.1 scheduling capabilities.
+    v1.1.3 builds on reliable delivery and business-calendar foundations with data-readiness conditions, event coalescing, resumable backfill, execution replay, resource-aware scheduling, and SLA budget models.
   </p>
   <div class="ff-grid">
     <div class="ff-card accent-coral">
-      <span class="ff-tag">recovery</span>
-      <h3>Intuitive calendar selection</h3>
-      <p>The Admin UI supports multi-month views, multi-select, drag/range selection, and bulk application of day types.</p>
+      <span class="ff-tag">readiness</span>
+      <h3>Run when the data is ready</h3>
+      <p>Use the condition SPI for upstream jobs, batches, watermarks, object files, or external system readiness. Unknown conditions fail closed.</p>
     </div>
     <div class="ff-card accent-lime">
-      <span class="ff-tag">backpressure</span>
-      <h3>Persisted scheduling semantics</h3>
-      <p>Calendar, blackout, dependency, and trigger-inbox models are wired to additive JDBC v13/v14 migrations.</p>
+      <span class="ff-tag">coalescing</span>
+      <h3>Keep event bursts from multiplying work</h3>
+      <p>Debounce events by business aggregation key, retain the latest payload and event count, then release one execution through the normal Outbox.</p>
     </div>
     <div class="ff-card accent-cyan">
-      <span class="ff-tag">coordination</span>
-      <h3>Observable batch results</h3>
-      <p>Netty results are written asynchronously with idempotency, fencing, rate-limited progress updates, and Prometheus metrics.</p>
+      <span class="ff-tag">recovery</span>
+      <h3>Recover backfills and replays with control</h3>
+      <p>Preview first, then run with batches, canaries, rate limits, and cursor progress. Compare job, calendar, dependency, and parameter changes before replay.</p>
     </div>
   </div>
   <div class="ff-actions">
-    <a class="ff-button primary" :href="withBase('/en/releases/v1.1.2')">Read the v1.1.2 Release Notes</a>
+    <a class="ff-button primary" :href="withBase('/en/releases/v1.1.3')">Read the v1.1.3 Release Notes</a>
   </div>
 </section>
 

@@ -4,8 +4,8 @@ const base = process.env.VITEPRESS_BASE ?? '/';
 const asset = (path: string) => `${base}${path}`.replace(/\/{2,}/g, '/');
 const siteRepo = 'https://github.com/fishered/firefly-home';
 const productRepo = 'https://github.com/fishered/Firefly';
-const mavenCentral = 'https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.1.2';
-const releaseVersions = ['v1.1.2', 'v1.1.1', 'v1.0.8', 'v1.0.6', 'v1.0.5', 'v1.0.4', 'v1.0.3', 'v1.0.2', 'v1.0.1'];
+const mavenCentral = 'https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.1.3';
+const releaseVersions = ['v1.1.3', 'v1.1.2', 'v1.1.1', 'v1.0.8', 'v1.0.6', 'v1.0.5', 'v1.0.4', 'v1.0.3', 'v1.0.2', 'v1.0.1'];
 
 const releaseItems = (localePrefix: string, moreText: string) => {
   const items = releaseVersions.slice(0, 3).map((version) => ({

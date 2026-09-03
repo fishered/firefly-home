@@ -24,7 +24,7 @@ Maven projects should pin the Firefly BOM once in `dependencyManagement`. Depend
         <dependency>
             <groupId>io.github.fishered</groupId>
             <artifactId>firefly-bom</artifactId>
-            <version>1.1.2</version>
+            <version>1.1.3</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -38,8 +38,8 @@ The BOM does not dynamically select the latest network release. It keeps builds 
 
 Business services only need `firefly-spring-boot-starter`. Releases are published to Maven Central, so no Firefly-specific repository or separate Netty and auto-configuration dependencies are required.
 
-::: tip Firefly 1.1.2
-`1.1.2` has been uploaded to [Maven Central](https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.1.2) through the tag-driven release workflow.
+::: tip Firefly 1.1.3
+`1.1.3` has been uploaded to [Maven Central](https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.1.3) through the tag-driven release workflow.
 :::
 
 Maven dependency:
@@ -55,7 +55,7 @@ Gradle dependency:
 
 ```groovy
 dependencies {
-    implementation platform("io.github.fishered:firefly-bom:1.1.2")
+    implementation platform("io.github.fishered:firefly-bom:1.1.3")
     implementation "io.github.fishered:firefly-spring-boot-starter"
 }
 ```

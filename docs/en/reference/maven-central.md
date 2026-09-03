@@ -1,13 +1,13 @@
 ---
 title: Maven Central
-description: Maven Central coordinates, module dependency chain, and version policy for Firefly 1.1.2.
+description: Maven Central coordinates, module dependency chain, and version policy for Firefly 1.1.3.
 ---
 
 # Maven Central
 
 Firefly is published to Maven Central under the `io.github.fishered` namespace. Spring Boot applications only need the Starter and do not need a private repository or separate Firefly module declarations.
 
-[Browse firefly-spring-boot-starter 1.1.2 on Maven Central](https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.1.2)
+[Browse firefly-spring-boot-starter 1.1.3 on Maven Central](https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.1.3)
 
 ::: info Indexing delay
 Search results and regional mirrors can take some time to synchronize after a Central Portal release. The Maven coordinates remain unchanged during this period.
@@ -19,7 +19,7 @@ Search results and regional mirrors can take some time to synchronize after a Ce
 <dependency>
     <groupId>io.github.fishered</groupId>
     <artifactId>firefly-spring-boot-starter</artifactId>
-    <version>1.1.2</version>
+    <version>1.1.3</version>
 </dependency>
 ```
 
@@ -33,7 +33,7 @@ repositories {
 }
 
 dependencies {
-    implementation "io.github.fishered:firefly-spring-boot-starter:1.1.2"
+    implementation "io.github.fishered:firefly-spring-boot-starter:1.1.3"
 }
 ```
 

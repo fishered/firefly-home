@@ -9,6 +9,7 @@ This page summarizes published Firefly versions. Each version records only the s
 
 | Version | Release date | Features in this version |
 |---|---|---|
+| [v1.1.3](./v1.1.3.md) | September 3, 2026 | Business-time windows, data-readiness conditions, event coalescing, resumable backfill, execution replay, resource-aware scheduling, and SLA budgets |
 | [v1.1.2](./v1.1.2.md) | September 1, 2026 | Modular project structure, batch partitioning foundations, dependency condition gates, and production deployment version consistency |
 | [v1.1.1](./v1.1.1.md) | August 30, 2026 | Scheduling semantics and business-calendar foundations, idempotent triggers and batch-result wiring, multi-select calendar UI, and JDBC calendar/import-batch migrations |
 | [v1.0.8](./v1.0.8.md) | August 25, 2026 | Release consistency and verification: aligned Docker/Compose versions, CI compatibility checks, trace version identity, and bounded carriers |
