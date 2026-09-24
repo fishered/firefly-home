@@ -22,7 +22,7 @@ import { withBase } from 'vitepress';
     <div class="ff-actions">
       <a class="ff-button primary" :href="withBase('/en/guide/quick-start')">Quick Start</a>
       <a class="ff-button secondary" :href="withBase('/en/features/')">Technical Components</a>
-      <a class="ff-button secondary" href="https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.1.3">Maven Central</a>
+      <a class="ff-button secondary" href="https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.1.4">Maven Central</a>
       <a class="ff-button ghost" href="https://github.com/fishered/Firefly">GitHub</a>
     </div>
   </div>
@@ -35,30 +35,30 @@ import { withBase } from 'vitepress';
 </section>
 
 <section class="ff-section">
-  <p class="ff-kicker">v1.1.3 business time and recoverable execution</p>
-  <h2>Make business time, readiness, and recovery part of scheduling semantics</h2>
+  <p class="ff-kicker">v1.1.4 recoverable execution hardening</p>
+  <h2>Keep recoverable execution correct under concurrency, timeouts, and restarts</h2>
   <p class="ff-section-lead">
-    v1.1.3 builds on reliable delivery and business-calendar foundations with data-readiness conditions, event coalescing, resumable backfill, execution replay, resource-aware scheduling, and SLA budget models.
+    v1.1.4 hardens readiness, event aggregation, backfill, replay, resource admission, and SLA semantics, with the complete CI suite promoted to a publication gate.
   </p>
   <div class="ff-grid">
     <div class="ff-card accent-coral">
       <span class="ff-tag">readiness</span>
-      <h3>Run when the data is ready</h3>
-      <p>Use the condition SPI for upstream jobs, batches, watermarks, object files, or external system readiness. Unknown conditions fail closed.</p>
+      <h3>Slow checks do not stall scheduling</h3>
+      <p>A bounded evaluator runs readiness conditions asynchronously; timeout, failure, and unknown types all fail closed.</p>
     </div>
     <div class="ff-card accent-lime">
       <span class="ff-tag">coalescing</span>
-      <h3>Keep event bursts from multiplying work</h3>
-      <p>Debounce events by business aggregation key, retain the latest payload and event count, then release one execution through the normal Outbox.</p>
+      <h3>Recover event windows across nodes</h3>
+      <p>Leased claims, retryable release, and JDBC row locking preserve aggregation windows through concurrency and node exits.</p>
     </div>
     <div class="ff-card accent-cyan">
       <span class="ff-tag">recovery</span>
-      <h3>Recover backfills and replays with control</h3>
-      <p>Preview first, then run with batches, canaries, rate limits, and cursor progress. Compare job, calendar, dependency, and parameter changes before replay.</p>
+      <h3>Keep execution identities isolated</h3>
+      <p>Backfill fire times and replay plans use independent bounded roots, with precise routing for failed instances and shards.</p>
     </div>
   </div>
   <div class="ff-actions">
-    <a class="ff-button primary" :href="withBase('/en/releases/v1.1.3')">Read the v1.1.3 Release Notes</a>
+    <a class="ff-button primary" :href="withBase('/en/releases/v1.1.4')">Read the v1.1.4 Release Notes</a>
   </div>
 </section>
 
