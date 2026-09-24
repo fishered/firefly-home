@@ -22,7 +22,7 @@ import { withBase } from 'vitepress';
     <div class="ff-actions">
       <a class="ff-button primary" :href="withBase('/guide/quick-start')">快速开始</a>
       <a class="ff-button secondary" :href="withBase('/features/')">查看技术组件</a>
-      <a class="ff-button secondary" href="https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.1.3">Maven Central</a>
+      <a class="ff-button secondary" href="https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.1.4">Maven Central</a>
       <a class="ff-button ghost" href="https://github.com/fishered/Firefly">GitHub</a>
     </div>
   </div>
@@ -35,30 +35,30 @@ import { withBase } from 'vitepress';
 </section>
 
 <section class="ff-section">
-  <p class="ff-kicker">v1.1.3 business time and recoverable execution</p>
-  <h2>让业务时间、数据就绪和故障恢复成为调度语义</h2>
+  <p class="ff-kicker">v1.1.4 recoverable execution hardening</p>
+  <h2>让可恢复执行在并发、超时和重启下保持正确</h2>
   <p class="ff-section-lead">
-    v1.1.3 在既有可靠投递和业务日历基础上，增加数据就绪条件、事件洪峰合并、可恢复补数、执行重放、资源感知调度和 SLA 预算模型。
+    v1.1.4 加固数据就绪、事件聚合、补数、重放、资源准入和 SLA 语义，并把完整 CI 提升为发布前置门禁。
   </p>
   <div class="ff-grid">
     <div class="ff-card accent-coral">
       <span class="ff-tag">readiness</span>
-      <h3>等数据准备好再执行</h3>
-      <p>可通过条件 SPI 接入上游任务、批次、水位、对象文件或外部系统状态，未知条件默认阻断。</p>
+      <h3>慢检查不阻塞调度</h3>
+      <p>数据就绪条件由有界线程池异步评估；超时、异常和未知类型都明确 fail closed。</p>
     </div>
     <div class="ff-card accent-lime">
       <span class="ff-tag">coalescing</span>
-      <h3>事件洪峰不放大执行</h3>
-      <p>按业务聚合键防抖事件，保留最新 payload 和事件数量，再通过普通 Outbox 生成一次执行。</p>
+      <h3>事件窗口可跨节点恢复</h3>
+      <p>租约领取、失败释放和 JDBC 行锁让 aggregation window 在并发与节点退出后仍可继续处理。</p>
     </div>
     <div class="ff-card accent-cyan">
       <span class="ff-tag">recovery</span>
-      <h3>补数和重放可控恢复</h3>
-      <p>先预览，再按批次、金丝雀、限速和断点运行；重放前可检查任务、日历、依赖和参数差异。</p>
+      <h3>执行身份清晰隔离</h3>
+      <p>补数 fire time 与重放计划使用独立、有界 root，失败实例和分片可被精确路由。</p>
     </div>
   </div>
   <div class="ff-actions">
-    <a class="ff-button primary" :href="withBase('/releases/v1.1.3')">查看 v1.1.3 Release Note</a>
+    <a class="ff-button primary" :href="withBase('/releases/v1.1.4')">查看 v1.1.4 Release Note</a>
   </div>
 </section>
 
