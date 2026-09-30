@@ -22,7 +22,7 @@ import { withBase } from 'vitepress';
     <div class="ff-actions">
       <a class="ff-button primary" :href="withBase('/guide/quick-start')">快速开始</a>
       <a class="ff-button secondary" :href="withBase('/features/')">查看技术组件</a>
-      <a class="ff-button secondary" href="https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.1.4">Maven Central</a>
+      <a class="ff-button secondary" href="https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.1.5">Maven Central</a>
       <a class="ff-button ghost" href="https://github.com/fishered/Firefly">GitHub</a>
     </div>
   </div>
@@ -35,30 +35,30 @@ import { withBase } from 'vitepress';
 </section>
 
 <section class="ff-section">
-  <p class="ff-kicker">v1.1.4 recoverable execution hardening</p>
-  <h2>让可恢复执行在并发、超时和重启下保持正确</h2>
+  <p class="ff-kicker">v1.1.5 production backfill and replay</p>
+  <h2>从历史触发预览到失败目标重放</h2>
   <p class="ff-section-lead">
-    v1.1.4 加固数据就绪、事件聚合、补数、重放、资源准入和 SLA 语义，并把完整 CI 提升为发布前置门禁。
+    v1.1.5 把补数操作、游标和 Canary 进度持久化，并在 Admin API/UI 中提供可预览、可限速、可恢复的补数与重放闭环。
   </p>
   <div class="ff-grid">
     <div class="ff-card accent-coral">
-      <span class="ff-tag">readiness</span>
-      <h3>慢检查不阻塞调度</h3>
-      <p>数据就绪条件由有界线程池异步评估；超时、异常和未知类型都明确 fail closed。</p>
+      <span class="ff-tag">backfill</span>
+      <h3>补数可预览也可恢复</h3>
+      <p>触发点、任务快照和游标持久化到 JDBC，节点重启后可从原进度继续。</p>
     </div>
     <div class="ff-card accent-lime">
-      <span class="ff-tag">coalescing</span>
-      <h3>事件窗口可跨节点恢复</h3>
-      <p>租约领取、失败释放和 JDBC 行锁让 aggregation window 在并发与节点退出后仍可继续处理。</p>
+      <span class="ff-tag">control</span>
+      <h3>分批、限速与 Canary</h3>
+      <p>运维人员可暂停、继续、取消或从 Canary 放开全量，租约 fencing 避免多节点重复推进。</p>
     </div>
     <div class="ff-card accent-cyan">
-      <span class="ff-tag">recovery</span>
-      <h3>执行身份清晰隔离</h3>
-      <p>补数 fire time 与重放计划使用独立、有界 root，失败实例和分片可被精确路由。</p>
+      <span class="ff-tag">replay</span>
+      <h3>只重放失败目标</h3>
+      <p>原 Outbox 快照与当前任务定义先做差异预览，再显式确认并精确重放失败实例或分片。</p>
     </div>
   </div>
   <div class="ff-actions">
-    <a class="ff-button primary" :href="withBase('/releases/v1.1.4')">查看 v1.1.4 Release Note</a>
+    <a class="ff-button primary" :href="withBase('/releases/v1.1.5')">查看 v1.1.5 Release Note</a>
   </div>
 </section>
 
