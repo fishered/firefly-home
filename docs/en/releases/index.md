@@ -9,6 +9,7 @@ This page summarizes published Firefly versions. Each version records only the s
 
 | Version | Release date | Features in this version |
 |---|---|---|
+| [v1.1.5](./v1.1.5.md) | September 30, 2026 | Production backfill and replay: durable cursors, lease fencing, rate and canary controls, failed-target replay, and complete Admin operator workflows |
 | [v1.1.4](./v1.1.4.md) | September 24, 2026 | Recoverable-execution hardening: bounded asynchronous readiness, isolated backfill and replay, durable event aggregation, corrected resource/SLA semantics, and complete release gates |
 | [v1.1.3](./v1.1.3.md) | September 3, 2026 | Business-time windows, data-readiness conditions, event coalescing, resumable backfill, execution replay, resource-aware scheduling, and SLA budgets |
 | [v1.1.2](./v1.1.2.md) | September 1, 2026 | Modular project structure, batch partitioning foundations, dependency condition gates, and production deployment version consistency |
