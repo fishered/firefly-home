@@ -22,7 +22,7 @@ import { withBase } from 'vitepress';
     <div class="ff-actions">
       <a class="ff-button primary" :href="withBase('/guide/quick-start')">快速开始</a>
       <a class="ff-button secondary" :href="withBase('/features/')">查看技术组件</a>
-      <a class="ff-button secondary" href="https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.1.5">Maven Central</a>
+      <a class="ff-button secondary" href="https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.1.7">Maven Central</a>
       <a class="ff-button ghost" href="https://github.com/fishered/Firefly">GitHub</a>
     </div>
   </div>
@@ -35,30 +35,30 @@ import { withBase } from 'vitepress';
 </section>
 
 <section class="ff-section">
-  <p class="ff-kicker">v1.1.5 production backfill and replay</p>
-  <h2>从历史触发预览到失败目标重放</h2>
+  <p class="ff-kicker">v1.1.7 production operations loop</p>
+  <h2>让高可用能力真正可安全运营</h2>
   <p class="ff-section-lead">
-    v1.1.5 把补数操作、游标和 Canary 进度持久化，并在 Admin API/UI 中提供可预览、可限速、可恢复的补数与重放闭环。
+    v1.1.7 为大数据量查询、安全事件入口、失败事件恢复和真实故障演练补齐生产闭环，同时保持现有 Executor 协议和任务定义兼容。
   </p>
   <div class="ff-grid">
     <div class="ff-card accent-coral">
-      <span class="ff-tag">backfill</span>
-      <h3>补数可预览也可恢复</h3>
-      <p>触发点、任务快照和游标持久化到 JDBC，节点重启后可从原进度继续。</p>
+      <span class="ff-tag">pagination</span>
+      <h3>十万级运维查询</h3>
+      <p>execution、补数、审计、任务历史和 Dead Outbox 使用稳定游标、服务端过滤与数据库索引。</p>
     </div>
     <div class="ff-card accent-lime">
-      <span class="ff-tag">control</span>
-      <h3>分批、限速与 Canary</h3>
-      <p>运维人员可暂停、继续、取消或从 Canary 放开全量，租约 fencing 避免多节点重复推进。</p>
+      <span class="ff-tag">events</span>
+      <h3>事件入口可防重放</h3>
+      <p>HMAC、时间戳、nonce 和持久化 inbox 共同保证并发重试只产生一个 root execution。</p>
     </div>
     <div class="ff-card accent-cyan">
-      <span class="ff-tag">replay</span>
-      <h3>只重放失败目标</h3>
-      <p>原 Outbox 快照与当前任务定义先做差异预览，再显式确认并精确重放失败实例或分片。</p>
+      <span class="ff-tag">recovery</span>
+      <h3>故障恢复可复现</h3>
+      <p>网络分区、Gateway 恢复、TLS 轮换、旧 fencing token 与备份恢复进入 CI 和预发门禁。</p>
     </div>
   </div>
   <div class="ff-actions">
-    <a class="ff-button primary" :href="withBase('/releases/v1.1.5')">查看 v1.1.5 Release Note</a>
+    <a class="ff-button primary" :href="withBase('/releases/v1.1.7')">查看 v1.1.7 Release Note</a>
   </div>
 </section>
 

@@ -22,7 +22,7 @@ import { withBase } from 'vitepress';
     <div class="ff-actions">
       <a class="ff-button primary" :href="withBase('/en/guide/quick-start')">Quick Start</a>
       <a class="ff-button secondary" :href="withBase('/en/features/')">Technical Components</a>
-      <a class="ff-button secondary" href="https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.1.5">Maven Central</a>
+      <a class="ff-button secondary" href="https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.1.7">Maven Central</a>
       <a class="ff-button ghost" href="https://github.com/fishered/Firefly">GitHub</a>
     </div>
   </div>
@@ -35,30 +35,30 @@ import { withBase } from 'vitepress';
 </section>
 
 <section class="ff-section">
-  <p class="ff-kicker">v1.1.5 production backfill and replay</p>
-  <h2>From historical fire-time preview to failed-target replay</h2>
+  <p class="ff-kicker">v1.1.7 production operations loop</p>
+  <h2>Operate high availability safely under real load and failures</h2>
   <p class="ff-section-lead">
-    v1.1.5 persists backfill operations, cursors, and canary progress, then exposes a previewable, throttled, and recoverable backfill-and-replay workflow through Admin API and UI.
+    v1.1.7 closes the production loop for large operational queries, secure event ingress, failed-event recovery, and reproducible fault drills while preserving existing Executor and job contracts.
   </p>
   <div class="ff-grid">
     <div class="ff-card accent-coral">
-      <span class="ff-tag">backfill</span>
-      <h3>Preview and recover backfills</h3>
-      <p>Fire times, job snapshots, and cursors are durable in JDBC, allowing another node to continue after a restart.</p>
+      <span class="ff-tag">pagination</span>
+      <h3>Operate at 100k-row scale</h3>
+      <p>Executions, backfills, audits, job history, and dead Outbox records use stable cursors, server-side filters, and database indexes.</p>
     </div>
     <div class="ff-card accent-lime">
-      <span class="ff-tag">control</span>
-      <h3>Batch, throttle, and canary</h3>
-      <p>Operators can pause, resume, cancel, or promote a canary while lease fencing prevents duplicate advancement across API nodes.</p>
+      <span class="ff-tag">events</span>
+      <h3>Reject replayed events</h3>
+      <p>HMAC, timestamps, nonces, and the durable JDBC inbox ensure concurrent retries produce only one root execution.</p>
     </div>
     <div class="ff-card accent-cyan">
-      <span class="ff-tag">replay</span>
-      <h3>Replay failed targets only</h3>
-      <p>Preview the original Outbox snapshot against the current job definition, confirm differences, and precisely replay failed instances or shards.</p>
+      <span class="ff-tag">recovery</span>
+      <h3>Reproduce production failures</h3>
+      <p>Network partitions, Gateway recovery, TLS rotation, stale fencing tokens, and backup restore are covered by CI and staging gates.</p>
     </div>
   </div>
   <div class="ff-actions">
-    <a class="ff-button primary" :href="withBase('/en/releases/v1.1.5')">Read the v1.1.5 Release Notes</a>
+    <a class="ff-button primary" :href="withBase('/en/releases/v1.1.7')">Read the v1.1.7 Release Notes</a>
   </div>
 </section>
 
