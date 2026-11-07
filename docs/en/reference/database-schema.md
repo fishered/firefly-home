@@ -13,12 +13,12 @@ scripts/postgresql/init.sql
 
 See [Deployment](../guide/deployment.md#postgresql-database-initialization) for the script download, checksum, and execution instructions.
 
-Existing databases apply each missing dialect migration in order. The schema `12` migrations are:
+Existing databases apply dialect-specific migrations. Core compatibility remains version `12`; the 1.2.1 additive feature migration is `v21.sql`:
 
 ```text
-stores/jdbc/src/main/resources/com/firefly/store/jdbc/schema/migrations/h2/v12.sql
-stores/jdbc/src/main/resources/com/firefly/store/jdbc/schema/migrations/postgresql/v12.sql
-stores/jdbc/src/main/resources/com/firefly/store/jdbc/schema/migrations/mysql/v12.sql
+stores/jdbc/src/main/resources/com/firefly/store/jdbc/schema/migrations/h2/v21.sql
+stores/jdbc/src/main/resources/com/firefly/store/jdbc/schema/migrations/postgresql/v21.sql
+stores/jdbc/src/main/resources/com/firefly/store/jdbc/schema/migrations/mysql/v21.sql
 ```
 
 ## Tables
@@ -40,6 +40,12 @@ stores/jdbc/src/main/resources/com/firefly/store/jdbc/schema/migrations/mysql/v1
 | `firefly_job_history` | Job create, enable/disable, and delete history |
 | `firefly_user` | Admin users, PBKDF2 password digest, roles, first-login password state, and version |
 | `firefly_integration_key` | PBKDF2 digest and rotation version of Integration Key |
+| `firefly_tenant_policy` | Versioned tenant weight, enablement, and five resource limits |
+| `firefly_tenant_usage` | Authoritative concurrency, CPU, memory, backlog, and trigger-window usage |
+| `firefly_tenant_reservation` | Idempotent admission reservations and recovery leases |
+| `firefly_dispatch_fairness_state` | Durable tenant virtual finish times and global fair clock |
+| `firefly_tenant_capacity_sample` | Five-minute capacity buckets, version ranges, resource peaks, saturation, and rejections |
+| `firefly_tenant_capacity_flush` | Idempotency keys for source/bucket flushes |
 
 ## Initialization Modes
 
@@ -53,4 +59,4 @@ For externally managed production migrations:
 firefly.jdbc.schema.mode=validate
 ```
 
-`initialize-if-empty` checks the installed version and applies every missing incremental SQL file in order. `validate` checks only and does not modify the database; externally migrated databases must contain schema version `12`.
+`initialize-if-empty` checks the installed state and applies missing core and feature migrations in order. `validate` checks only and does not modify the database. Externally migrated databases must contain core schema version `12`, with v20 tenant-governance tables and v21 capacity-sample tables installed. v21 only adds tables, so 1.2.0 and 1.2.1 can coexist during a rolling upgrade.

@@ -22,7 +22,7 @@ import { withBase } from 'vitepress';
     <div class="ff-actions">
       <a class="ff-button primary" :href="withBase('/en/guide/quick-start')">Quick Start</a>
       <a class="ff-button secondary" :href="withBase('/en/features/')">Technical Components</a>
-      <a class="ff-button secondary" href="https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.1.7">Maven Central</a>
+      <a class="ff-button secondary" href="https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.2.1">Maven Central</a>
       <a class="ff-button ghost" href="https://github.com/fishered/Firefly">GitHub</a>
     </div>
   </div>
@@ -35,30 +35,31 @@ import { withBase } from 'vitepress';
 </section>
 
 <section class="ff-section">
-  <p class="ff-kicker">v1.1.7 production operations loop</p>
-  <h2>Operate high availability safely under real load and failures</h2>
+  <p class="ff-kicker">v1.2.1 quota preview and capacity planning</p>
+  <h2>See quota risk before applying a change</h2>
   <p class="ff-section-lead">
-    v1.1.7 closes the production loop for large operational queries, secure event ingress, failed-event recovery, and reproducible fault drills while preserving existing Executor and job contracts.
+    v1.2.1 combines authoritative tenant usage with bounded history to deliver side-effect-free previews, deterministic recommendations, data-quality labels, and fleet-wide risk reports.
   </p>
   <div class="ff-grid">
     <div class="ff-card accent-coral">
-      <span class="ff-tag">pagination</span>
-      <h3>Operate at 100k-row scale</h3>
-      <p>Executions, backfills, audits, job history, and dead Outbox records use stable cursors, server-side filters, and database indexes.</p>
+      <span class="ff-tag">dry-run</span>
+      <h3>Preview without runtime writes</h3>
+      <p>The planner reads policy, usage, and history without creating reservations or changing Outbox and audit state.</p>
     </div>
     <div class="ff-card accent-lime">
-      <span class="ff-tag">events</span>
-      <h3>Reject replayed events</h3>
-      <p>HMAC, timestamps, nonces, and the durable JDBC inbox ensure concurrent retries produce only one root execution.</p>
+      <span class="ff-tag">recommendation</span>
+      <h3>Deterministic, explainable limits</h3>
+      <p>Each resource uses observed peak, current usage, and explicit headroom. Incomplete or quota-censored data never becomes a false-precision recommendation.</p>
     </div>
     <div class="ff-card accent-cyan">
-      <span class="ff-tag">recovery</span>
-      <h3>Reproduce production failures</h3>
-      <p>Network partitions, Gateway recovery, TLS rotation, stale fencing tokens, and backup restore are covered by CI and staging gates.</p>
+      <span class="ff-tag">operations</span>
+      <h3>Human-controlled application</h3>
+      <p>The Admin UI supports preview, per-field adoption, and CAS-protected save, while JSON and CSV exports remain strictly bounded.</p>
     </div>
   </div>
   <div class="ff-actions">
-    <a class="ff-button primary" :href="withBase('/en/releases/v1.1.7')">Read the v1.1.7 Release Notes</a>
+    <a class="ff-button primary" :href="withBase('/en/releases/v1.2.1')">Read the v1.2.1 Release Notes</a>
+    <a class="ff-button secondary" :href="withBase('/en/features/capacity-planning')">Read Capacity Planning</a>
   </div>
 </section>
 

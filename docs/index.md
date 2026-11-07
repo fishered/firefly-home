@@ -22,7 +22,7 @@ import { withBase } from 'vitepress';
     <div class="ff-actions">
       <a class="ff-button primary" :href="withBase('/guide/quick-start')">快速开始</a>
       <a class="ff-button secondary" :href="withBase('/features/')">查看技术组件</a>
-      <a class="ff-button secondary" href="https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.1.7">Maven Central</a>
+      <a class="ff-button secondary" href="https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.2.1">Maven Central</a>
       <a class="ff-button ghost" href="https://github.com/fishered/Firefly">GitHub</a>
     </div>
   </div>
@@ -35,30 +35,31 @@ import { withBase } from 'vitepress';
 </section>
 
 <section class="ff-section">
-  <p class="ff-kicker">v1.1.7 production operations loop</p>
-  <h2>让高可用能力真正可安全运营</h2>
+  <p class="ff-kicker">v1.2.1 quota preview and capacity planning</p>
+  <h2>在修改配额前先看见风险</h2>
   <p class="ff-section-lead">
-    v1.1.7 为大数据量查询、安全事件入口、失败事件恢复和真实故障演练补齐生产闭环，同时保持现有 Executor 协议和任务定义兼容。
+    v1.2.1 基于权威租户用量和有界历史样本，提供无副作用预演、确定性推荐、质量标记和全租户风险报告。
   </p>
   <div class="ff-grid">
     <div class="ff-card accent-coral">
-      <span class="ff-tag">pagination</span>
-      <h3>十万级运维查询</h3>
-      <p>execution、补数、审计、任务历史和 Dead Outbox 使用稳定游标、服务端过滤与数据库索引。</p>
+      <span class="ff-tag">dry-run</span>
+      <h3>预演不写入运行状态</h3>
+      <p>读取 policy、usage 和历史基线完成纯计算，不创建 reservation，也不修改 Outbox 或审计记录。</p>
     </div>
     <div class="ff-card accent-lime">
-      <span class="ff-tag">events</span>
-      <h3>事件入口可防重放</h3>
-      <p>HMAC、时间戳、nonce 和持久化 inbox 共同保证并发重试只产生一个 root execution。</p>
+      <span class="ff-tag">recommendation</span>
+      <h3>推荐值确定且可解释</h3>
+      <p>按历史峰值、当前用量和显式余量逐维度计算；数据不足或被配额截断时拒绝伪精确建议。</p>
     </div>
     <div class="ff-card accent-cyan">
-      <span class="ff-tag">recovery</span>
-      <h3>故障恢复可复现</h3>
-      <p>网络分区、Gateway 恢复、TLS 轮换、旧 fencing token 与备份恢复进入 CI 和预发门禁。</p>
+      <span class="ff-tag">operations</span>
+      <h3>从风险报告回到人工应用</h3>
+      <p>Admin UI 支持预览、逐项采用建议和 CAS 保存；JSON/CSV 导出保持行数和响应体有界。</p>
     </div>
   </div>
   <div class="ff-actions">
-    <a class="ff-button primary" :href="withBase('/releases/v1.1.7')">查看 v1.1.7 Release Note</a>
+    <a class="ff-button primary" :href="withBase('/releases/v1.2.1')">查看 v1.2.1 Release Note</a>
+    <a class="ff-button secondary" :href="withBase('/features/capacity-planning')">阅读容量规划文档</a>
   </div>
 </section>
 

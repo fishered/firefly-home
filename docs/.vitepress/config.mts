@@ -4,8 +4,8 @@ const base = process.env.VITEPRESS_BASE ?? '/';
 const asset = (path: string) => `${base}${path}`.replace(/\/{2,}/g, '/');
 const siteRepo = 'https://github.com/fishered/firefly-home';
 const productRepo = 'https://github.com/fishered/Firefly';
-const mavenCentral = 'https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.1.3';
-const releaseVersions = ['v1.1.3', 'v1.1.2', 'v1.1.1', 'v1.0.8', 'v1.0.6', 'v1.0.5', 'v1.0.4', 'v1.0.3', 'v1.0.2', 'v1.0.1'];
+const mavenCentral = 'https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.2.1';
+const releaseVersions = ['v1.2.1', 'v1.1.7', 'v1.1.5', 'v1.1.4', 'v1.1.3', 'v1.1.2', 'v1.1.1', 'v1.0.8', 'v1.0.6', 'v1.0.5', 'v1.0.4', 'v1.0.3', 'v1.0.2', 'v1.0.1'];
 
 const releaseItems = (localePrefix: string, moreText: string) => {
   const items = releaseVersions.slice(0, 3).map((version) => ({
@@ -82,7 +82,8 @@ const zhSidebar: DefaultTheme.Sidebar = [
       { text: '调度中心模型', link: '/features/scheduler-center' },
       { text: 'Netty 执行器', link: '/features/netty-executor' },
       { text: 'JDBC 与 HA', link: '/features/ha-cluster' },
-      { text: '插件体系', link: '/features/plugins' }
+      { text: '插件体系', link: '/features/plugins' },
+      { text: '配额与容量规划', link: '/features/capacity-planning' }
     ]
   },
   {
@@ -127,7 +128,8 @@ const enSidebar: DefaultTheme.Sidebar = [
       { text: 'Scheduler Center', link: '/en/features/scheduler-center' },
       { text: 'Netty Executor', link: '/en/features/netty-executor' },
       { text: 'JDBC and HA', link: '/en/features/ha-cluster' },
-      { text: 'Plugin System', link: '/en/features/plugins' }
+      { text: 'Plugin System', link: '/en/features/plugins' },
+      { text: 'Quota and Capacity Planning', link: '/en/features/capacity-planning' }
     ]
   },
   {

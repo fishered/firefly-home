@@ -39,5 +39,9 @@ http://127.0.0.1:9711/metrics
 | `firefly_executor_connections` | Executor connections |
 | `firefly_scheduler_owned_shards` | Shards owned by this scheduler |
 | `firefly_database_clock_offset_milliseconds` | Database clock offset |
+| `firefly_tenant_capacity_observations_dropped_total{reason}` | Capacity observations dropped because buffers are full or shutdown timed out |
+| `firefly_tenant_capacity_flush_failures_total{reason}` | Asynchronous capacity-sample flush failures |
+| `firefly_tenant_capacity_flush_lag_seconds` | Delay between bucket completion and durable flush |
+| `firefly_tenant_quota_preview_total{risk}` | Quota previews grouped by risk level |
 
-`config/prometheus/firefly-alerts.yml` contains alert templates for schedule delay, overdue jobs, hot shards, outbox stalls, lease failures, database clock drift, and executor registration errors.
+Capacity-collection health metrics omit tenant IDs so tenant growth does not multiply Prometheus cardinality. `config/prometheus/firefly-alerts.yml` contains alert templates for schedule delay, overdue jobs, hot shards, outbox stalls, lease failures, database clock drift, capacity backpressure, and executor registration errors.

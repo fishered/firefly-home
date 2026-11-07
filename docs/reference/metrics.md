@@ -39,5 +39,9 @@ http://127.0.0.1:9711/metrics
 | `firefly_executor_connections` | Executor 连接数 |
 | `firefly_scheduler_owned_shards` | 当前节点持有的 scheduler shard 数 |
 | `firefly_database_clock_offset_milliseconds` | 数据库时钟偏移 |
+| `firefly_tenant_capacity_observations_dropped_total{reason}` | 因缓冲满或关闭超时丢弃的容量观测 |
+| `firefly_tenant_capacity_flush_failures_total{reason}` | 容量样本异步刷新失败次数 |
+| `firefly_tenant_capacity_flush_lag_seconds` | 容量桶完成到持久化之间的延迟 |
+| `firefly_tenant_quota_preview_total{risk}` | 按风险等级统计的配额预演次数 |
 
-仓库中的 `config/prometheus/firefly-alerts.yml` 提供 p99 调度延迟、任务逾期、热点分片、Outbox 停滞、lease 失败、数据库时钟漂移和 Executor 注册异常告警。
+容量采集健康指标不包含 tenant ID，避免租户数扩大 Prometheus 基数。仓库中的 `config/prometheus/firefly-alerts.yml` 提供 p99 调度延迟、任务逾期、热点分片、Outbox 停滞、lease 失败、数据库时钟漂移、容量采集背压和 Executor 注册异常告警。
