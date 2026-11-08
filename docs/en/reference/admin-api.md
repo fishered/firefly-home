@@ -132,3 +132,16 @@ Example:
 | `POST` | `/api/users` | Create user |
 | `PUT` | `/api/users/{username}` | Update user |
 | `DELETE` | `/api/users/{username}` | Delete user |
+
+## Tenant quotas and capacity
+
+| Method | Path | Role | Description |
+|---|---|---|---|
+| `GET` | `/api/tenants` | `READER` | Tenant policy and authoritative usage |
+| `PUT` | `/api/tenants/{tenantId}` | `ADMIN` | Update policy through `expectedVersion` CAS |
+| `POST` | `/api/tenants/{tenantId}/quota-preview` | `ADMIN` | Side-effect-free proposed-policy preview |
+| `GET` | `/api/tenant-capacity` | `READER` | Risk-ordered capacity report, capped at 500 per page |
+| `GET` | `/api/tenant-capacity/{tenantId}` | `READER` | Per-tenant capacity evidence and recommendations |
+| `GET` | `/api/tenant-capacity/export` | `OPERATOR` | Bounded JSON/CSV export, capped at 1,000 tenants and 2 MiB |
+
+Preview requests carry the complete proposed policy, `expectedVersion`, a `window` from `P1D` to `P30D`, and `headroomPercent` from 5 to 100. Preview does not write an audit record; the actual PUT continues to record before/after state. If the version changes after preview, PUT returns `409 tenant_version_conflict`.

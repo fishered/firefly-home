@@ -7,6 +7,10 @@ description: Firefly evolution direction.
 
 Firefly evolves around one principle: stabilize core scheduling semantics first, then add platform capabilities through independent modules.
 
+## Current release: v1.2.1
+
+Quota preview and capacity planning were released on November 7, 2026. The release delivers side-effect-free dry runs, five-resource capacity baselines, deterministic recommendations, data-quality labels, an Admin preview/apply workflow, and bounded fleet-wide exports.
+
 ## Near Term
 
 - Improve Admin API request and response examples
@@ -14,6 +18,7 @@ Firefly evolves around one principle: stabilize core scheduling semantics first,
 - Improve execution history and troubleshooting in Admin UI
 - Expand Prometheus alert templates
 - Add compatibility tests for external plugins
+- Expand capacity-report operating examples and real PostgreSQL/MySQL performance baselines
 
 ## Mid Term
 
@@ -22,6 +27,7 @@ Firefly evolves around one principle: stabilize core scheduling semantics first,
 - import and export for jobs
 - cluster maintenance tools
 - schema migration tooling improvements
+- elastic quota and burst credits after admission and accounting semantics are explicitly defined
 
 ## Long-Term Principles
 
@@ -29,3 +35,4 @@ Firefly evolves around one principle: stabilize core scheduling semantics first,
 - Do not let default time zones define job semantics
 - Do not generate unfenced executions when the database is unavailable
 - Do not re-couple Admin UI and Java API
+- Do not auto-apply quota recommendations or present historical peaks as machine-learned capacity guarantees

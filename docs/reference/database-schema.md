@@ -13,12 +13,12 @@ scripts/postgresql/init.sql
 
 脚本下载、校验和执行方式见[部署说明](../guide/deployment.md#postgresql-数据库初始化)。
 
-已有数据库通过方言对应的增量脚本从当前版本依次迁移。`v12.sql` 位于：
+已有数据库通过方言对应的增量脚本迁移。核心兼容版本保持 `12`；1.2.1 的 additive feature migration 为 `v21.sql`：
 
 ```text
-stores/jdbc/src/main/resources/com/firefly/store/jdbc/schema/migrations/h2/v12.sql
-stores/jdbc/src/main/resources/com/firefly/store/jdbc/schema/migrations/postgresql/v12.sql
-stores/jdbc/src/main/resources/com/firefly/store/jdbc/schema/migrations/mysql/v12.sql
+stores/jdbc/src/main/resources/com/firefly/store/jdbc/schema/migrations/h2/v21.sql
+stores/jdbc/src/main/resources/com/firefly/store/jdbc/schema/migrations/postgresql/v21.sql
+stores/jdbc/src/main/resources/com/firefly/store/jdbc/schema/migrations/mysql/v21.sql
 ```
 
 ## 表职责
@@ -40,6 +40,12 @@ stores/jdbc/src/main/resources/com/firefly/store/jdbc/schema/migrations/mysql/v1
 | `firefly_job_history` | 任务创建、启停和删除历史 |
 | `firefly_user` | Admin 账号、PBKDF2 密码摘要、角色、首次改密状态和版本 |
 | `firefly_integration_key` | Integration Key 的 PBKDF2 摘要和轮换版本 |
+| `firefly_tenant_policy` | 版本化租户权重、启停状态和五类资源上限 |
+| `firefly_tenant_usage` | 权威并发、CPU、内存、backlog 和触发窗口用量 |
+| `firefly_tenant_reservation` | 幂等准入 reservation 与恢复租约 |
+| `firefly_dispatch_fairness_state` | 持久化租户虚拟完成时间与全局公平时钟 |
+| `firefly_tenant_capacity_sample` | 五分钟容量桶、版本范围、资源峰值、触顶与拒绝计数 |
+| `firefly_tenant_capacity_flush` | source/bucket flush 幂等键 |
 
 ## 初始化模式
 
@@ -55,4 +61,4 @@ firefly.jdbc.schema.mode=initialize-if-empty
 firefly.jdbc.schema.mode=validate
 ```
 
-`initialize-if-empty` 会检查当前版本并按顺序执行缺失的增量 SQL。`validate` 只检查，不修改数据库。完成外部迁移后，`firefly_schema_version` 必须包含版本 `12`。
+`initialize-if-empty` 会检查当前状态并按顺序执行缺失的核心与 feature migration。`validate` 只检查，不修改数据库。完成外部迁移后，`firefly_schema_version` 必须包含核心版本 `12`，并安装 v20 租户治理表和 v21 容量样本表。v21 只新增表，允许 1.2.0 与 1.2.1 滚动共存。

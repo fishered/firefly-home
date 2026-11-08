@@ -151,3 +151,16 @@ AdminHttpResponder          统一 JSON 与错误响应
 | `POST` | `/api/users` | 创建用户 |
 | `PUT` | `/api/users/{username}` | 更新用户 |
 | `DELETE` | `/api/users/{username}` | 删除用户 |
+
+## 租户配额与容量
+
+| 方法 | 路径 | 权限 | 说明 |
+|---|---|---|---|
+| `GET` | `/api/tenants` | `READER` | 租户 policy 与权威 usage 列表 |
+| `PUT` | `/api/tenants/{tenantId}` | `ADMIN` | 使用 `expectedVersion` CAS 更新租户 policy |
+| `POST` | `/api/tenants/{tenantId}/quota-preview` | `ADMIN` | 无副作用预演 proposed policy |
+| `GET` | `/api/tenant-capacity` | `READER` | 按风险排序的容量报告，单页最多 500 |
+| `GET` | `/api/tenant-capacity/{tenantId}` | `READER` | 单租户容量证据与推荐 |
+| `GET` | `/api/tenant-capacity/export` | `OPERATOR` | 有界 JSON/CSV 导出，最多 1,000 个租户和 2 MiB |
+
+预演请求携带完整 proposed policy、`expectedVersion`、`window`（`P1D` 至 `P30D`）和 `headroomPercent`（5 至 100）。预演不写审计；实际 PUT 继续记录 before/after。预览后版本已变化时，PUT 返回 `409 tenant_version_conflict`。
