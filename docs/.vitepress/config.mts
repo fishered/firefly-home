@@ -69,6 +69,7 @@ const zhSidebar: DefaultTheme.Sidebar = [
     text: '开始使用',
     items: [
       { text: '快速开始', link: '/guide/quick-start' },
+      { text: '首次接入与运维诊断', link: '/guide/operations-journey' },
       { text: '集成方式', link: '/guide/integration' },
       { text: '部署说明', link: '/guide/deployment' },
       { text: '配置参考', link: '/reference/configuration' }
@@ -115,6 +116,7 @@ const enSidebar: DefaultTheme.Sidebar = [
     text: 'Get Started',
     items: [
       { text: 'Quick Start', link: '/en/guide/quick-start' },
+      { text: 'Getting Started and Diagnosis', link: '/en/guide/operations-journey' },
       { text: 'Integration', link: '/en/guide/integration' },
       { text: 'Deployment', link: '/en/guide/deployment' },
       { text: 'Configuration', link: '/en/reference/configuration' }
