@@ -19,8 +19,8 @@ The Admin UI follows a setup → create → run → diagnose → adjust path. Th
 
 Open **Operations → Action center**. Each item shows a reason, impact, suggested action, and related object. Its action opens the relevant execution, executor, backfill, tenant, or node page.
 
-Execution details arrange trigger, quota admission, Outbox, Gateway, ACK, execution, and retry/replay in a timeline. “No observed data” means the detail API has no timestamp for that stage. It does not imply success or failure. The target table still provides instance, Gateway, ACK, and error details.
+Execution details read `GET /api/executions/{id}/timeline` and arrange trigger, quota admission, Outbox, Gateway, ACK, execution, and retry/replay. “No observed data” means no event is persisted for that stage. It does not imply success or failure. The target table still provides instance, Gateway, ACK, and error details.
 
-Preview job and tenant changes before applying them. Editing the form invalidates its preview, and request errors preserve input. Tenant quotas have server-side version checks. Job edits currently re-read the definition before applying, but atomic server-side version checks are not yet available; review job history if a conflict is reported.
+Preview job and tenant changes before applying them. Editing the form invalidates its preview, and request errors preserve input. Both use server-side `expectedVersion` compare-and-set and return 409 on conflict. Scheduling also advances a job's version, so an active job may occasionally require reopening and previewing again; the form retains the entered values for review.
 
 The Action center aggregates current paginated data. It is not a complete historical alert index.
