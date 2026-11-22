@@ -21,6 +21,6 @@ Open **Operations → Action center**. Each item shows a reason, impact, suggest
 
 Execution details read `GET /api/executions/{id}/timeline` and arrange trigger, quota admission, Outbox, Gateway, ACK, execution, and retry/replay. “No observed data” means no event is persisted for that stage. It does not imply success or failure. The target table still provides instance, Gateway, ACK, and error details.
 
-Preview job and tenant changes before applying them. Editing the form invalidates its preview, and request errors preserve input. Both use server-side `expectedVersion` compare-and-set and return 409 on conflict. Scheduling also advances a job's version, so an active job may occasionally require reopening and previewing again; the form retains the entered values for review.
+Preview job and tenant changes before applying them. Editing the form invalidates its preview, and request errors preserve input. Both use server-side `expectedVersion` compare-and-set and return 409 on conflict. Scheduling also advances a job's version. After a conflict, the edit dialog retains the input, fetches the latest job version, and requires another review and preview before applying.
 
 The Action center aggregates current paginated data. It is not a complete historical alert index.
