@@ -22,7 +22,7 @@ import { withBase } from 'vitepress';
     <div class="ff-actions">
       <a class="ff-button primary" :href="withBase('/en/guide/quick-start')">Quick Start</a>
       <a class="ff-button secondary" :href="withBase('/en/features/')">Technical Components</a>
-      <a class="ff-button secondary" href="https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.2.1">Maven Central</a>
+      <a class="ff-button secondary" href="https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.2.2">Maven Central</a>
       <a class="ff-button ghost" href="https://github.com/fishered/Firefly">GitHub</a>
     </div>
   </div>
@@ -35,31 +35,31 @@ import { withBase } from 'vitepress';
 </section>
 
 <section class="ff-section">
-  <p class="ff-kicker">v1.2.1 quota preview and capacity planning</p>
-  <h2>See quota risk before applying a change</h2>
+  <p class="ff-kicker">v1.2.2 setup and operations diagnosis</p>
+  <h2>Follow the task from setup to diagnosis</h2>
   <p class="ff-section-lead">
-    v1.2.1 combines authoritative tenant usage with bounded history to deliver side-effect-free previews, deterministic recommendations, data-quality labels, and fleet-wide risk reports.
+    Setup guidance, four-step job creation, an action center, and execution timelines connect the common operator workflow.
   </p>
   <div class="ff-grid">
     <div class="ff-card accent-coral">
-      <span class="ff-tag">dry-run</span>
-      <h3>Preview without runtime writes</h3>
-      <p>The planner reads policy, usage, and history without creating reservations or changing Outbox and audit state.</p>
+      <span class="ff-tag">setup</span>
+      <h3>Check readiness and run a first job</h3>
+      <p>Verify API, Gateway, key, online Executor, and Handler before copying Spring Boot configuration and creating a job.</p>
     </div>
     <div class="ff-card accent-lime">
-      <span class="ff-tag">recommendation</span>
-      <h3>Deterministic, explainable limits</h3>
-      <p>Each resource uses observed peak, current usage, and explicit headroom. Incomplete or quota-censored data never becomes a false-precision recommendation.</p>
+      <span class="ff-tag">diagnosis</span>
+      <h3>Open a timeline from an action item</h3>
+      <p>Inspect reasons, impact, and suggested actions. The timeline marks only stages supported by snapshot evidence.</p>
     </div>
     <div class="ff-card accent-cyan">
-      <span class="ff-tag">operations</span>
-      <h3>Human-controlled application</h3>
-      <p>The Admin UI supports preview, per-field adoption, and CAS-protected save, while JSON and CSV exports remain strictly bounded.</p>
+      <span class="ff-tag">safe change</span>
+      <h3>Preview and protect job edits</h3>
+      <p>Server-side version checks protect job edits. A conflict retains input, fetches the latest version, and requires another preview.</p>
     </div>
   </div>
   <div class="ff-actions">
-    <a class="ff-button primary" :href="withBase('/en/releases/v1.2.1')">Read the v1.2.1 Release Notes</a>
-    <a class="ff-button secondary" :href="withBase('/en/features/capacity-planning')">Read Capacity Planning</a>
+    <a class="ff-button primary" :href="withBase('/en/releases/v1.2.2')">Read the v1.2.2 Release Notes</a>
+    <a class="ff-button secondary" :href="withBase('/en/guide/operations-journey')">Read Setup and Diagnosis</a>
   </div>
 </section>
 

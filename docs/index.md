@@ -22,7 +22,7 @@ import { withBase } from 'vitepress';
     <div class="ff-actions">
       <a class="ff-button primary" :href="withBase('/guide/quick-start')">快速开始</a>
       <a class="ff-button secondary" :href="withBase('/features/')">查看技术组件</a>
-      <a class="ff-button secondary" href="https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.2.1">Maven Central</a>
+      <a class="ff-button secondary" href="https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.2.2">Maven Central</a>
       <a class="ff-button ghost" href="https://github.com/fishered/Firefly">GitHub</a>
     </div>
   </div>
@@ -35,31 +35,31 @@ import { withBase } from 'vitepress';
 </section>
 
 <section class="ff-section">
-  <p class="ff-kicker">v1.2.1 quota preview and capacity planning</p>
-  <h2>在修改配额前先看见风险</h2>
+  <p class="ff-kicker">v1.2.2 首次接入与运维诊断</p>
+  <h2>从接入到排障，沿任务路径完成工作</h2>
   <p class="ff-section-lead">
-    v1.2.1 基于权威租户用量和有界历史样本，提供无副作用预演、确定性推荐、质量标记和全租户风险报告。
+    首次接入向导、四步任务创建、待处理中心和执行诊断时间线，让常见操作连成一条可追踪的路径。
   </p>
   <div class="ff-grid">
     <div class="ff-card accent-coral">
-      <span class="ff-tag">dry-run</span>
-      <h3>预演不写入运行状态</h3>
-      <p>读取 policy、usage 和历史基线完成纯计算，不创建 reservation，也不修改 Outbox 或审计记录。</p>
+      <span class="ff-tag">setup</span>
+      <h3>检查环境并接入第一个任务</h3>
+      <p>逐项检查 API、Gateway、密钥、在线 Executor 和 Handler，复制 Spring Boot 配置后创建任务。</p>
     </div>
     <div class="ff-card accent-lime">
-      <span class="ff-tag">recommendation</span>
-      <h3>推荐值确定且可解释</h3>
-      <p>按历史峰值、当前用量和显式余量逐维度计算；数据不足或被配额截断时拒绝伪精确建议。</p>
+      <span class="ff-tag">diagnosis</span>
+      <h3>从待处理项进入执行时间线</h3>
+      <p>查看失败原因、影响和建议；时间线只标记有快照证据的阶段，未记录的阶段明确提示。</p>
     </div>
     <div class="ff-card accent-cyan">
-      <span class="ff-tag">operations</span>
-      <h3>从风险报告回到人工应用</h3>
-      <p>Admin UI 支持预览、逐项采用建议和 CAS 保存；JSON/CSV 导出保持行数和响应体有界。</p>
+      <span class="ff-tag">safe change</span>
+      <h3>预览并保护任务修改</h3>
+      <p>任务编辑使用服务端版本校验；发生冲突时保留输入，读取最新版本并要求重新预览。</p>
     </div>
   </div>
   <div class="ff-actions">
-    <a class="ff-button primary" :href="withBase('/releases/v1.2.1')">查看 v1.2.1 Release Note</a>
-    <a class="ff-button secondary" :href="withBase('/features/capacity-planning')">阅读容量规划文档</a>
+    <a class="ff-button primary" :href="withBase('/releases/v1.2.2')">查看 v1.2.2 Release Note</a>
+    <a class="ff-button secondary" :href="withBase('/guide/operations-journey')">阅读接入与诊断指南</a>
   </div>
 </section>
 

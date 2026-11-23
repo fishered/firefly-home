@@ -7,15 +7,15 @@ description: Firefly evolution direction.
 
 Firefly evolves around one principle: stabilize core scheduling semantics first, then add platform capabilities through independent modules.
 
-## Current release: v1.2.1
+## Current release: v1.2.2
 
-Quota preview and capacity planning were released on November 7, 2026. The release delivers side-effect-free dry runs, five-resource capacity baselines, deterministic recommendations, data-quality labels, an Admin preview/apply workflow, and bounded fleet-wide exports.
+Setup and operations diagnosis were released on November 23, 2026. The release provides readiness checks, a four-step job wizard, an action center, an execution timeline, and version-checked job edits.
 
 ## Near Term
 
 - Improve Admin API request and response examples
 - Add more Spring Boot Starter examples
-- Improve execution history and troubleshooting in Admin UI
+- Extend the action center to complete alert queries and precise event timestamps
 - Expand Prometheus alert templates
 - Add compatibility tests for external plugins
 - Expand capacity-report operating examples and real PostgreSQL/MySQL performance baselines
