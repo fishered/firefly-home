@@ -83,11 +83,13 @@ AdminHttpResponder          统一 JSON 与错误响应
 | `GET` | `/api/jobs` | 任务列表 |
 | `POST` | `/api/jobs` | 创建远程任务 |
 | `GET` | `/api/jobs/{jobId}` | 查看任务详情 |
-| `PUT` | `/api/jobs/{jobId}` | 更新任务 |
+| `PUT` | `/api/jobs/{jobId}` | 更新任务；携带 `expectedVersion` 时原子校验版本 |
 | `PATCH` | `/api/jobs/{jobId}` | 启停任务 |
 | `DELETE` | `/api/jobs/{jobId}` | 删除任务 |
 | `POST` | `/api/jobs/{jobId}/trigger` | 手动触发任务 |
 | `GET` | `/api/jobs/{jobId}/history` | 查看任务变更历史 |
+
+任务读取结果包含 `version`。编辑时把该值作为 `expectedVersion` 传给 PUT；若版本已变化，返回 `409 job_version_conflict`，任务不会被覆盖。现有调度游标更新也会推进版本，活跃任务可能需要重新读取并预览。
 
 创建任务示例：
 

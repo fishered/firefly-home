@@ -4,8 +4,8 @@ const base = process.env.VITEPRESS_BASE ?? '/';
 const asset = (path: string) => `${base}${path}`.replace(/\/{2,}/g, '/');
 const siteRepo = 'https://github.com/fishered/firefly-home';
 const productRepo = 'https://github.com/fishered/Firefly';
-const mavenCentral = 'https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.2.1';
-const releaseVersions = ['v1.2.1', 'v1.1.7', 'v1.1.5', 'v1.1.4', 'v1.1.3', 'v1.1.2', 'v1.1.1', 'v1.0.8', 'v1.0.6', 'v1.0.5', 'v1.0.4', 'v1.0.3', 'v1.0.2', 'v1.0.1'];
+const mavenCentral = 'https://central.sonatype.com/artifact/io.github.fishered/firefly-spring-boot-starter/1.2.2';
+const releaseVersions = ['v1.2.2', 'v1.2.1', 'v1.1.7', 'v1.1.5', 'v1.1.4', 'v1.1.3', 'v1.1.2', 'v1.1.1', 'v1.0.8', 'v1.0.6', 'v1.0.5', 'v1.0.4', 'v1.0.3', 'v1.0.2', 'v1.0.1'];
 
 const releaseItems = (localePrefix: string, moreText: string) => {
   const items = releaseVersions.slice(0, 3).map((version) => ({
@@ -69,6 +69,7 @@ const zhSidebar: DefaultTheme.Sidebar = [
     text: '开始使用',
     items: [
       { text: '快速开始', link: '/guide/quick-start' },
+      { text: '首次接入与运维诊断', link: '/guide/operations-journey' },
       { text: '集成方式', link: '/guide/integration' },
       { text: '部署说明', link: '/guide/deployment' },
       { text: '配置参考', link: '/reference/configuration' }
@@ -115,6 +116,7 @@ const enSidebar: DefaultTheme.Sidebar = [
     text: 'Get Started',
     items: [
       { text: 'Quick Start', link: '/en/guide/quick-start' },
+      { text: 'Getting Started and Diagnosis', link: '/en/guide/operations-journey' },
       { text: 'Integration', link: '/en/guide/integration' },
       { text: 'Deployment', link: '/en/guide/deployment' },
       { text: 'Configuration', link: '/en/reference/configuration' }
